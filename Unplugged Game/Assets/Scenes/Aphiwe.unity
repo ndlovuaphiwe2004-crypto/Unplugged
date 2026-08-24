@@ -1660,6 +1660,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3dc2565960ede3a48a4aa36ddef8eaa5, type: 2}
+    - target: {fileID: -808966925217029657, guid: 9552fab94d4887c4b983b64e9aaaec3e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9552fab94d4887c4b983b64e9aaaec3e, type: 3}
       propertyPath: m_Name
       value: Lamp
@@ -2443,6 +2447,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 42e39541a46830c4898f025b4d0d5ba7, type: 2}
+    - target: {fileID: -808966925217029657, guid: a70cd4f5e43ee2d4896c654d56c3db76, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a70cd4f5e43ee2d4896c654d56c3db76, type: 3}
       propertyPath: m_Name
       value: Laptop
@@ -4804,6 +4812,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2f1f100618e88c64a9652f05a9fad8b4, type: 2}
+    - target: {fileID: -808966925217029657, guid: 094453a16edac8c4391d6fcf85654410, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 094453a16edac8c4391d6fcf85654410, type: 3}
       propertyPath: m_Name
       value: VOSE
@@ -5085,6 +5097,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6013d4cefb22c1a47a512697a30b59a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -49.841
+      objectReference: {fileID: 0}
+    - target: {fileID: -808966925217029657, guid: 6013d4cefb22c1a47a512697a30b59a0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6013d4cefb22c1a47a512697a30b59a0, type: 3}
       propertyPath: m_Name
@@ -6105,6 +6121,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: c4ded46a8280ba54aac8fa44740996be, type: 2}
+    - target: {fileID: -710256169865633756, guid: 5d1045a8c5cdb8949b2507d46e5c734d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -466329591000292508, guid: 5d1045a8c5cdb8949b2507d46e5c734d, type: 3}
       propertyPath: m_Name
       value: Pillow1
@@ -13422,6 +13442,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: c1494d301cef0ac4cbcf5a0bfcebc7af, type: 2}
+    - target: {fileID: -808966925217029657, guid: 56cc1a6dc63a79247a6db25806cb6381, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 56cc1a6dc63a79247a6db25806cb6381, type: 3}
       propertyPath: m_Name
       value: Mircowave
@@ -15491,7 +15515,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
