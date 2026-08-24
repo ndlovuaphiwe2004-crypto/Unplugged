@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerLook playerLook;
 
-    // Awake runs before OnEnable, so initialization must happen here
+    
     void Awake()
     {
         playerInput = new PlayerInput();
