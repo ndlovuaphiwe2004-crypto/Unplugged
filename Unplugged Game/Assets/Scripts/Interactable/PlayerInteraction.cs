@@ -86,10 +86,9 @@ public class PlayerInteraction : MonoBehaviour
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.isKinematic = true; // disable physics while held
+            rb.isKinematic = true;
         }
 
-        // Parent but preserve world transform
         heldObject.transform.SetParent(holdPoint, true);
 
         Debug.Log("Picked up: " + heldObject.name);
@@ -103,13 +102,13 @@ public class PlayerInteraction : MonoBehaviour
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.isKinematic = false; // restore physics
+            rb.isKinematic = false;
+
+            heldObject.transform.SetParent(null, true);
+
+            Debug.Log("Dropped: " + heldObject.name);
+            heldObject = null;
+            interactionText.gameObject.SetActive(false);
         }
-
-        heldObject.transform.SetParent(null, true);
-
-        Debug.Log("Dropped: " + heldObject.name);
-        heldObject = null;
-        interactionText.gameObject.SetActive(false);
     }
 }

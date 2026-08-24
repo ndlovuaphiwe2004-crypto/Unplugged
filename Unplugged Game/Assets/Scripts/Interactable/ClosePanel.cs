@@ -19,8 +19,8 @@ public class ClosePanel : MonoBehaviour
         {
             panelToClose.SetActive(false);
             Time.timeScale = 1f; // resume game
-            Cursor.lockState = CursorLockMode.Locked; // re-lock mouse
-            Cursor.visible = false;                   // hide cursor
+            Cursor.lockState = CursorLockMode.Locked; 
+            Cursor.visible = false; 
             Debug.Log("Panel closed: " + panelToClose.name);
         }
     }
