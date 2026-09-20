@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
@@ -25,16 +24,15 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
 
-        
+        // Set standard standing dimensions (Center stays centered relative to the height)
         controller.height = standingHeight;
-        controller.center = new Vector3(0, standingHeight / 2f, 0);
+        controller.center = new Vector3(0, 0, 0);
 
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
         }
 
-      
         if (cameraTransform != null)
         {
             originalCameraY = cameraTransform.localPosition.y;
@@ -49,11 +47,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 isCrouching = true;
                 controller.height = crouchHeight;
-                controller.center = new Vector3(0, crouchHeight / 2f, 0);
+                // Keep the center aligned so the bottom of the capsule stays at foot level
+                controller.center = new Vector3(0, 0, 0);
 
                 if (cameraTransform != null)
                 {
-                   
                     cameraTransform.localPosition = new Vector3(
                         cameraTransform.localPosition.x,
                         originalCameraY * 0.5f,
@@ -68,11 +66,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 isCrouching = false;
                 controller.height = standingHeight;
-                controller.center = new Vector3(0, standingHeight / 2f, 0);
+                controller.center = new Vector3(0, 0, 0);
 
                 if (cameraTransform != null)
                 {
-                  
                     cameraTransform.localPosition = new Vector3(
                         cameraTransform.localPosition.x,
                         originalCameraY,
@@ -94,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVelocity.y = -2f;
         }
+
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
