@@ -5,27 +5,18 @@ using System.Collections;
 
 public class NewspaperIntro : MonoBehaviour
 {
-    public Image backgroundImage;       // Newspaper background
-    public TMP_Text headlineText;       // HeadlineText object
-    public TMP_Text storyText;          // StoryText object
-    [TextArea] public string fullStory; // Storyline text
+    public Image backgroundImage;
+    public TMP_Text storyText;
+    [TextArea] public string fullStory;
     public float backgroundFadeDuration = 2f;
-    public float headlineDelay = 0.5f;
-    public float headlineFadeDuration = 1f;
-    public float typeSpeed = 0.05f;     // Delay between letters
-    public GameObject continuePrompt;   // Press C to Continue prompt
+    public float typeSpeed = 0.05f;
+    public GameObject continuePrompt;
 
     void Start()
     {
         if (continuePrompt != null)
             continuePrompt.SetActive(false);
 
-        // Force headline invisible at start
-        Color hlColor = headlineText.color;
-        hlColor.a = 0f;
-        headlineText.color = hlColor;
-
-        // Prepare story text invisible
         storyText.text = "";
 
         StartCoroutine(FadeSequence());
@@ -33,7 +24,6 @@ public class NewspaperIntro : MonoBehaviour
 
     IEnumerator FadeSequence()
     {
-        // Fade background in
         Color bgColor = backgroundImage.color;
         bgColor.a = 0f;
         backgroundImage.color = bgColor;
@@ -47,24 +37,6 @@ public class NewspaperIntro : MonoBehaviour
             yield return null;
         }
 
-        // Small delay before headline
-        yield return new WaitForSeconds(headlineDelay);
-
-        // Fade headline in
-        Color hlColor = headlineText.color;
-        hlColor.a = 0f;
-        headlineText.color = hlColor;
-
-        elapsed = 0f;
-        while (elapsed < headlineFadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            hlColor.a = Mathf.Clamp01(elapsed / headlineFadeDuration);
-            headlineText.color = hlColor;
-            yield return null;
-        }
-
-        // Typewriter effect for story
         storyText.text = "";
         foreach (char c in fullStory)
         {
@@ -72,7 +44,6 @@ public class NewspaperIntro : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        // Show blinking prompt
         if (continuePrompt != null)
             continuePrompt.SetActive(true);
     }
