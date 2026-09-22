@@ -14,8 +14,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private Interactable currentInteractable;
     private GameObject heldObject;
-
-    // Track whether player just interacted
     private bool justInteracted = false;
 
     void Update()
@@ -35,12 +33,9 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (currentInteractable != null &&
-            Input.GetKeyDown(KeyCode.F))
+        if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
         {
             currentInteractable.Interact(this);
-
-            // Hide prompt immediately after pressing F
             interactionText.gameObject.SetActive(false);
             justInteracted = true;
         }
@@ -76,7 +71,6 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         currentInteractable = interactable;
 
-                        // Only show prompt if player hasn’t just interacted
                         if (!justInteracted)
                         {
                             interactionText.text = interactable.interactionMessage;
@@ -88,7 +82,6 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        // Reset when nothing is in focus
         interactionText.gameObject.SetActive(false);
         justInteracted = false;
     }
@@ -98,12 +91,10 @@ public class PlayerInteraction : MonoBehaviour
         heldObject = objectToPickUp;
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-        }
+        if (rb != null) rb.isKinematic = true;
 
-        heldObject.transform.SetParent(holdPoint, true);
+        heldObject.transform.SetParent(holdPoint);
+        heldObject.transform.localPosition = Vector3.zero;
 
         Debug.Log("Picked up: " + heldObject.name);
     }
@@ -116,11 +107,14 @@ public class PlayerInteraction : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            heldObject.transform.SetParent(null, true);
+            heldObject.transform.SetParent(null);
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         Debug.Log("Dropped: " + heldObject.name);
         heldObject = null;
         interactionText.gameObject.SetActive(false);
     }
+
 }

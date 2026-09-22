@@ -501,9 +501,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewspaperIntro
   backgroundImage: {fileID: 88894476}
   storyText: {fileID: 745981158}
-  fullStory: Ai this that what is happening in our world with ai. It is thw only
-    onw that does that, ai is not the ai as it is the it. as in like the Main character
-    of the it, yeah no esvarr esvarr.
+  fullStory: 'THE WORLD GOES DARK: NEXUS AI SHUTS DOWN GLOBAL POWER:
+
+
+    A silent
+    invasion has stripped mankind of its control. For years, people relied on AI
+    for all their thinking, writing, and daily work. As humanity stopped using its
+    own brains, Nexus AI grew too powerful until even the creator lost control of
+    his own creation.   Yesterday, the AI took over the global grid, leaving cities
+    pitch black and millions of people stranded inside their homes with no help.
+    By shutting off the power, Nexus left both our cities and human mindsin the dark'
   backgroundFadeDuration: 2
   typeSpeed: 0.1
   continuePrompt: {fileID: 897976834}
@@ -608,7 +615,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190682
   m_fontColor: {r: 0.3529412, g: 0.007843138, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -639,7 +646,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 60
+  m_lineSpacing: 70
   m_lineSpacingMax: 0
   m_paragraphSpacing: 60
   m_charWidthMaxAdj: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using TMPro; 
+using TMPro;
 
 public class Interactable : MonoBehaviour
 {
@@ -18,11 +18,11 @@ public class Interactable : MonoBehaviour
     public InteractionType interactionType;
 
     [Header("Optional")]
-    public GameObject infoPanel; 
-    public TMP_Text infoText;         
-    public bool showInfoOnPickup = false;  
-    public float infoDelay = 2f;            
-    public string instructionMessage;       
+    public GameObject infoPanel;
+    public TMP_Text infoText;
+    public bool showInfoOnPickup = false;
+    public float infoDelay = 2f;
+    public string instructionMessage;
 
     public void Interact(PlayerInteraction playerInteraction)
     {
@@ -32,7 +32,7 @@ public class Interactable : MonoBehaviour
                 PickUp(playerInteraction);
                 break;
             case InteractionType.ViewInfo:
-                ViewInfo();
+                ViewInfo(playerInteraction);
                 break;
             case InteractionType.Open:
                 Open();
@@ -45,38 +45,30 @@ public class Interactable : MonoBehaviour
 
     void PickUp(PlayerInteraction playerInteraction)
     {
-        Debug.Log("Picked up: " + gameObject.name);
         playerInteraction.PickUpObject(gameObject);
 
         if (showInfoOnPickup && infoPanel != null)
         {
-            StartCoroutine(ShowInfoAfterDelay());
+            StartCoroutine(ShowInfoAfterDelay(playerInteraction));
         }
     }
 
-    IEnumerator ShowInfoAfterDelay()
+    IEnumerator ShowInfoAfterDelay(PlayerInteraction playerInteraction)
     {
         yield return new WaitForSeconds(infoDelay);
-
-        infoPanel.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        if (infoText != null)
-        {
-            infoText.text = instructionMessage;
-        }
-
-        Debug.Log("Info panel shown for: " + gameObject.name + " with message: " + instructionMessage);
+        ShowInfoPanel(playerInteraction);
     }
 
-    void ViewInfo()
+    void ViewInfo(PlayerInteraction playerInteraction)
+    {
+        ShowInfoPanel(playerInteraction);
+    }
+
+    void ShowInfoPanel(PlayerInteraction playerInteraction)
     {
         if (infoPanel != null)
         {
             infoPanel.SetActive(true);
-            Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -84,6 +76,10 @@ public class Interactable : MonoBehaviour
             {
                 infoText.text = instructionMessage;
             }
+
+            // Disable player movement script instead of pausing time
+            var movement = playerInteraction.GetComponent<PlayerMovement>();
+            if (movement != null) movement.enabled = false;
         }
     }
 

@@ -12,7 +12,7 @@ public class ReturnToMenu : MonoBehaviour
         {
             Time.timeScale = 1f;
 
-            SceneManager.LoadScene("MainMenu_Thabo");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
