@@ -2075,8 +2075,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
   playerCam: {fileID: 1147336480}
-  xSensitivity: 30
-  ySensitivity: 30
+  xSensitivity: 1.5
+  ySensitivity: 1.5
 --- !u!114 &329667952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3132,7 +3132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
   promptText: {fileID: 444047713}
-  blinkSpeed: 1
+  blinkSpeed: 0.5
 --- !u!222 &444047715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3845,7 +3845,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 724, y: 370}
+  m_AnchoredPosition: {x: 757.4, y: 420.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &622488561
@@ -3880,8 +3880,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279440405
-  m_fontColor: {r: 0.08235294, g: 0.078431375, b: 0.07450981, a: 1}
+    rgba: 4280294882
+  m_fontColor: {r: 0.8867924, g: 0.11433481, b: 0.12687667, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4635,7 +4635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: 9}
+  m_AnchoredPosition: {x: -7, y: 138}
   m_SizeDelta: {x: 399.6546, y: 179.7542}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756640841
@@ -4692,7 +4692,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -4724,7 +4724,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -359.3816, y: -138.15143, z: -285.54016, w: -252.96182}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5299,9 +5299,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.30588236, g: 1, b: 1, a: 0.83137256}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    m_PressedColor: {r: 0, g: 1, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5334,13 +5334,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1224961105}
-        m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
-        m_MethodName: CloseInfoPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1883129557}
+        m_TargetAssemblyTypeName: IntroPanelController, Assembly-CSharp
+        m_MethodName: ClosePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: PlayerInteraction, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6195,8 +6195,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4279966494
+  m_fontColor: {r: 0.11949676, g: 0.10709614, b: 0.10709614, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6279,7 +6279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
   promptText: {fileID: 886190839}
-  blinkSpeed: 1
+  blinkSpeed: 0.5
 --- !u!1 &886231684 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89f98c5fc6068924bb72957bcc1ee2b5, type: 3}
@@ -9565,7 +9565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
   promptText: {fileID: 1396091390}
-  blinkSpeed: 1
+  blinkSpeed: 0.5
 --- !u!114 &1396091390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22432,7 +22432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
   promptText: {fileID: 444047713}
-  blinkSpeed: 1
+  blinkSpeed: 0.5
 --- !u!114 &1718418433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22735,6 +22735,7 @@ GameObject:
   - component: {fileID: 1779423799}
   - component: {fileID: 1779423801}
   - component: {fileID: 1779423800}
+  - component: {fileID: 1779423802}
   m_Layer: 5
   m_Name: next
   m_TagString: Untagged
@@ -22790,8 +22791,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -22814,7 +22815,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -22861,6 +22862,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779423798}
   m_CullTransparentMesh: 1
+--- !u!114 &1779423802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779423798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdf9a453ec2ad54cbbd45dbd2943981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
+  promptText: {fileID: 1779423800}
+  blinkSpeed: 0.5
 --- !u!43 &1786284642
 Mesh:
   m_ObjectHideFlags: 0
@@ -25700,8 +25715,6 @@ GameObject:
   - component: {fileID: 1398618389903054546}
   - component: {fileID: 2050809774815689973}
   - component: {fileID: 1079662025295529832}
-  - component: {fileID: 2050809774815689975}
-  - component: {fileID: 2050809774815689974}
   m_Layer: 0
   m_Name: Cube.008
   m_TagString: Untagged
@@ -26197,54 +26210,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281855664248086429}
   m_Mesh: {fileID: 8552134717624371188, guid: 4dcc556db049b934aa6f9b99adf3a224, type: 3}
---- !u!54 &2050809774815689974
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281855664248086429}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &2050809774815689975
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281855664248086429}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.007973968, y: 0.10639126, z: 0.0154948365}
-  m_Center: {x: -0.013892989, y: 0.0022453074, z: 0.020434512}
 --- !u!1 &2076850630678644635
 GameObject:
   m_ObjectHideFlags: 0
@@ -27095,8 +27060,6 @@ GameObject:
   - component: {fileID: 4418473096879951370}
   - component: {fileID: 215592836984889269}
   - component: {fileID: 1558643248307048551}
-  - component: {fileID: 7178114113459361380}
-  - component: {fileID: 7178114113459361379}
   m_Layer: 0
   m_Name: Cube.009
   m_TagString: Untagged
@@ -27104,54 +27067,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &7178114113459361379
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7178114113459361378}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.007973968, y: 0.10639126, z: 0.014490699}
-  m_Center: {x: -0.013892989, y: 0.0022453074, z: -0.0007776693}
---- !u!54 &7178114113459361380
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7178114113459361378}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!23 &7202271456401781389
 MeshRenderer:
   m_ObjectHideFlags: 0

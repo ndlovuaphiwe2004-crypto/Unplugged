@@ -4,8 +4,8 @@ using System.Collections;
 
 public class FadeInImage : MonoBehaviour
 {
-    public Image backgroundImage;   // Assign your NewspaperBackground here
-    public float fadeDuration = 2f; // Seconds for fade-in
+    public Image backgroundImage;   
+    public float fadeDuration = 2f; 
 
     void Start()
     {

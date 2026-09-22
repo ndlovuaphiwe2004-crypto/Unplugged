@@ -4,10 +4,10 @@ using System.Collections;
 
 public class TypewriterFade : MonoBehaviour
 {
-    public TMP_Text storyText;          // Assign your StoryText
-    [TextArea] public string fullStory; // Paste storyline here
-    public float typeSpeed = 0.05f;     // Delay between letters
-    public float fadeDuration = 0.1f;   // Fade time per letter
+    public TMP_Text storyText;          
+    [TextArea] public string fullStory; 
+    public float typeSpeed = 0.05f;     
+    public float fadeDuration = 0.1f; 
 
     void Start()
     {
@@ -23,7 +23,6 @@ public class TypewriterFade : MonoBehaviour
         {
             storyText.maxVisibleCharacters = i + 1;
 
-            // Optional: fade effect per character
             float elapsed = 0f;
             while (elapsed < fadeDuration)
             {

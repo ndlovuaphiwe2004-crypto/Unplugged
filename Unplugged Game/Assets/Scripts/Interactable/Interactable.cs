@@ -43,15 +43,39 @@ public class Interactable : MonoBehaviour
         }
     }
 
+    public int riddleIndex = -1;
+
     void PickUp(PlayerInteraction playerInteraction)
     {
         playerInteraction.PickUpObject(gameObject);
 
-        if (showInfoOnPickup && infoPanel != null)
+        if (riddleIndex >= 0 && RiddleManager.Instance.CanShowRiddle(riddleIndex))
         {
-            StartCoroutine(ShowInfoAfterDelay(playerInteraction));
+            if (showInfoOnPickup && infoPanel != null)
+            {
+                StartCoroutine(ShowInfoAfterDelay(playerInteraction));
+            }
         }
     }
+
+    public void CloseInfoPanel(PlayerInteraction playerInteraction)
+    {
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            if (riddleIndex >= 0)
+            {
+                RiddleManager.Instance.RiddleSolved();
+            }
+
+            var movement = playerInteraction.GetComponent<PlayerMovement>();
+            if (movement != null) movement.enabled = true;
+        }
+    }
+
 
     IEnumerator ShowInfoAfterDelay(PlayerInteraction playerInteraction)
     {
@@ -77,7 +101,12 @@ public class Interactable : MonoBehaviour
                 infoText.text = instructionMessage;
             }
 
-            // Disable player movement script instead of pausing time
+            ClosePanel closePanel = infoPanel.GetComponent<ClosePanel>();
+            if (closePanel != null)
+            {
+                closePanel.SetCurrentInteractable(this);
+            }
+
             var movement = playerInteraction.GetComponent<PlayerMovement>();
             if (movement != null) movement.enabled = false;
         }

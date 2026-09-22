@@ -45,7 +45,7 @@ public class GameTimer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.H))
             {
                 Time.timeScale = 1f;
-                SceneManager.LoadScene("MainMenu_Thabo");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }

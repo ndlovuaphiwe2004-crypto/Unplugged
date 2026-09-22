@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameClearButton : MonoBehaviour
 {
     public GameObject clearedPanel;
     public float fadeDuration = 1f;
+    private bool panelShown = false;
 
     void Start()
     {
@@ -14,8 +16,19 @@ public class GameClearButton : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (panelShown && clearedPanel.activeSelf && Input.GetKeyDown(KeyCode.H))
+        {
+            ReturnToMenu();
+        }
+    }
+
     public void ShowClearedPanel()
     {
+        if (panelShown) return;
+        panelShown = true;
+
         if (clearedPanel != null)
         {
             clearedPanel.SetActive(true);
@@ -24,6 +37,12 @@ public class GameClearButton : MonoBehaviour
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            PlayerMovement movement = FindObjectOfType<PlayerMovement>();
+            if (movement != null) movement.enabled = false;
+
+            PlayerInteraction interaction = FindObjectOfType<PlayerInteraction>();
+            if (interaction != null) interaction.enabled = false;
 
             Debug.Log("Game Cleared panel shown!");
         }
@@ -39,11 +58,17 @@ public class GameClearButton : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime; // unaffected by pause
+            elapsed += Time.unscaledDeltaTime; 
             cg.alpha = Mathf.Clamp01(elapsed / duration);
             yield return null;
         }
 
         cg.alpha = 1f;
+    }
+
+    public void ReturnToMenu()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("MainMenu"); 
     }
 }

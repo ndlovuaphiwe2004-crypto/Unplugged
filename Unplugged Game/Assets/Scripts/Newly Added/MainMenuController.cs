@@ -5,7 +5,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Thabo_fcopy");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void QuitGame()
