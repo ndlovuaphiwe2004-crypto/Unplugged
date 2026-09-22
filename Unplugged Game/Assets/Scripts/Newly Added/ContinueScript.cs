@@ -7,7 +7,7 @@ public class ContinueScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            SceneManager.LoadScene("MainMenu_Thabo");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

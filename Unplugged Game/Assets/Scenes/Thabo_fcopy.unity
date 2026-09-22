@@ -21220,7 +21220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e971b54df5a3a4c81f87c9a55b52b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  totalTime: 10
+  totalTime: 40
   timerText: {fileID: 749902243}
   gameOverPanel: {fileID: 1273721034}
 --- !u!4 &1802924251
