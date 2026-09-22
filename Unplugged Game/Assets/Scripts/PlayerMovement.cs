@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
 
-        // Set standard standing dimensions (Center stays centered relative to the height)
+        
         controller.height = standingHeight;
         controller.center = new Vector3(0, 0, 0);
 
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isCrouching = true;
                 controller.height = crouchHeight;
-                // Keep the center aligned so the bottom of the capsule stays at foot level
+               
                 controller.center = new Vector3(0, 0, 0);
 
                 if (cameraTransform != null)
