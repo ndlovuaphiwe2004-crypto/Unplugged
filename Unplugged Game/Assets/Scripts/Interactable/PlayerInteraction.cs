@@ -15,6 +15,9 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
     private GameObject heldObject;
 
+    // Track whether player just interacted
+    private bool justInteracted = false;
+
     void Update()
     {
         CheckForInteractable();
@@ -36,6 +39,10 @@ public class PlayerInteraction : MonoBehaviour
             Input.GetKeyDown(KeyCode.F))
         {
             currentInteractable.Interact(this);
+
+            // Hide prompt immediately after pressing F
+            interactionText.gameObject.SetActive(false);
+            justInteracted = true;
         }
     }
 
@@ -68,15 +75,22 @@ public class PlayerInteraction : MonoBehaviour
                     if (interactable != null)
                     {
                         currentInteractable = interactable;
-                        interactionText.text = interactable.interactionMessage;
-                        interactionText.gameObject.SetActive(true);
+
+                        // Only show prompt if player hasn’t just interacted
+                        if (!justInteracted)
+                        {
+                            interactionText.text = interactable.interactionMessage;
+                            interactionText.gameObject.SetActive(true);
+                        }
                         return;
                     }
                 }
             }
         }
 
+        // Reset when nothing is in focus
         interactionText.gameObject.SetActive(false);
+        justInteracted = false;
     }
 
     public void PickUpObject(GameObject objectToPickUp)
@@ -94,7 +108,6 @@ public class PlayerInteraction : MonoBehaviour
         Debug.Log("Picked up: " + heldObject.name);
     }
 
-
     void DropObject()
     {
         if (heldObject == null) return;
@@ -103,12 +116,11 @@ public class PlayerInteraction : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-
             heldObject.transform.SetParent(null, true);
-
-            Debug.Log("Dropped: " + heldObject.name);
-            heldObject = null;
-            interactionText.gameObject.SetActive(false);
         }
+
+        Debug.Log("Dropped: " + heldObject.name);
+        heldObject = null;
+        interactionText.gameObject.SetActive(false);
     }
 }

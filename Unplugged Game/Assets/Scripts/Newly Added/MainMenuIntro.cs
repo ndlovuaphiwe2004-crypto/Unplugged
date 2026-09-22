@@ -11,10 +11,10 @@ public class MainMenuIntro : MonoBehaviour
     public float moveDuration = 1f;
     public Vector3 targetPosition;
 
-    public CanvasGroup[] buttonGroups;  
+    public CanvasGroup[] buttonGroups;
     public float buttonFadeDuration = 0.5f;
     public float buttonStaggerDelay = 0.3f;
-    public float dropDistance = 200f;    
+    public float dropDistance = 200f;
 
     public AnimationCurve dropCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public float cursorRevealDelay = 0.5f;
@@ -31,7 +31,7 @@ public class MainMenuIntro : MonoBehaviour
             group.blocksRaycasts = false;
 
             RectTransform rt = group.GetComponent<RectTransform>();
-            rt.anchoredPosition += new Vector2(0, dropDistance); 
+            rt.anchoredPosition += new Vector2(0, dropDistance);
         }
 
         titleText.text = "";
@@ -40,6 +40,21 @@ public class MainMenuIntro : MonoBehaviour
 
     IEnumerator IntroSequence()
     {
+        foreach (char c in gameTitle)
+        {
+            titleText.text += c;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        Vector3 startPos = titleText.rectTransform.anchoredPosition;
+        float elapsed = 0f;
+        while (elapsed < moveDuration)
+        {
+            elapsed += Time.deltaTime;
+            titleText.rectTransform.anchoredPosition =
+                Vector3.Lerp(startPos, targetPosition, Mathf.SmoothStep(0f, 1f, elapsed / moveDuration));
+            yield return null;
+        }
 
         for (int i = buttonGroups.Length - 1; i >= 0; i--)
         {

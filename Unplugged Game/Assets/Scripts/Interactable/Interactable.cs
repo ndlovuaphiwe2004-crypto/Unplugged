@@ -94,17 +94,10 @@ public class Interactable : MonoBehaviour
 
     void ShowPanel()
     {
-        if (infoPanel != null)
+        GameClearButton clearButton = GetComponent<GameClearButton>();
+        if (clearButton != null)
         {
-            infoPanel.SetActive(true);
-            Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            if (infoText != null)
-            {
-                infoText.text = instructionMessage;
-            }
+            clearButton.ShowClearedPanel();
         }
     }
 }
