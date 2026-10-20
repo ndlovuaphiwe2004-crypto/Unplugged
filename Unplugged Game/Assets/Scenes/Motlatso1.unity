@@ -8140,7 +8140,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1264160527}
   - component: {fileID: 1264160530}
-  - component: {fileID: 1264160529}
   - component: {fileID: 1264160528}
   m_Layer: 0
   m_Name: Camera
@@ -8208,14 +8207,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1264160529
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264160526}
-  m_Enabled: 1
 --- !u!20 &1264160530
 Camera:
   m_ObjectHideFlags: 0
@@ -25521,7 +25512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 622488561}
   remainingTime: 300
-  isTimerRunning: 1
 --- !u!43 &2114238741
 Mesh:
   m_ObjectHideFlags: 0
