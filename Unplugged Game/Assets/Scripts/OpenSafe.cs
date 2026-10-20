@@ -35,7 +35,6 @@ public class OpenSafe : MonoBehaviour
             if (codePanel != null)
             {
                 codePanel.SetActive(true);
-                // Unlock cursor so player can click keypad buttons
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
@@ -59,7 +58,6 @@ public class OpenSafe : MonoBehaviour
             {
                 codePanel.SetActive(false);
             }
-            // Lock cursor back for first-person camera movement
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -93,7 +91,6 @@ public class OpenSafe : MonoBehaviour
         }
         else if (code.Length >= correctCode.Length)
         {
-            // Reset code after wrong attempt
             code = "";
         }
     }
