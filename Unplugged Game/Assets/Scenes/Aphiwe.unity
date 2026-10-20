@@ -1292,6 +1292,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6093592463355912122, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
+    - target: {fileID: -4683669308469848369, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
+    - target: {fileID: -1461304994638716399, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
+    - target: {fileID: -804731622281664130, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
+    - target: {fileID: -678588488315902003, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 91a2a993afc532d49b81081b2034e783, type: 3}
       propertyPath: m_Name
       value: K_Stove
@@ -2109,6 +2129,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.08
       objectReference: {fileID: 0}
+    - target: {fileID: -7664728788398519507, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
       propertyPath: m_Name
       value: L_Cabinet
@@ -3614,6 +3638,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7304d6c834626d44a974e98874a28bb9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 87e60d8cd8b8086409e70ddc3a715a97, type: 2}
     - target: {fileID: 919132149155446097, guid: 7304d6c834626d44a974e98874a28bb9, type: 3}
       propertyPath: m_Name
       value: bookshelf (1)
@@ -4687,6 +4715,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 09d2a2a808407c74e8978861bc91767c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 09d2a2a808407c74e8978861bc91767c, type: 3}
       propertyPath: m_Name
       value: B_Cabinets2
@@ -4934,6 +4966,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1461304994638716399, guid: 61805ca6d03340c4992ff4f380dfc525, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 61805ca6d03340c4992ff4f380dfc525, type: 3}
       propertyPath: m_Name
       value: kitchen sink
@@ -12394,6 +12430,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7664728788398519507, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
       propertyPath: m_Name
       value: K_Cabinet_Top
@@ -12710,6 +12750,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 09d2a2a808407c74e8978861bc91767c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 09d2a2a808407c74e8978861bc91767c, type: 3}
       propertyPath: m_Name
       value: B_Cabinets2 (1)
@@ -14507,6 +14551,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7664728788398519507, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ddb7dd41c3b1348b5dc21b67225c8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 8fc24f158f988f44d8795ac94197cd57, type: 3}
       propertyPath: m_Name
       value: L_Cabinet2

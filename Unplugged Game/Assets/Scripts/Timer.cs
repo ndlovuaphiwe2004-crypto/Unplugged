@@ -6,7 +6,7 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float remainingTime = 300f;
+    [SerializeField] private float remainingTime = 300f; 
 
     private bool isTimerRunning = true;
 
@@ -35,6 +35,6 @@ public class Timer : MonoBehaviour
     private void OnTimerEnd()
     {
         Debug.Log("Time ran out! Nexus AI Wins!.");
-
+       
     }
 }
