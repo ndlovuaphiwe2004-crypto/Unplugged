@@ -3,14 +3,19 @@ using UnityEngine;
 public class ClosePanel : MonoBehaviour
 {
     public GameObject panelToClose;
+    private Interactable currentInteractable;
 
     void Update()
     {
-        // Allow player to press C to close
         if (panelToClose.activeSelf && Input.GetKeyDown(KeyCode.C))
         {
             Close();
         }
+    }
+
+    public void SetCurrentInteractable(Interactable interactable)
+    {
+        currentInteractable = interactable;
     }
 
     public void Close()
@@ -18,10 +23,15 @@ public class ClosePanel : MonoBehaviour
         if (panelToClose != null)
         {
             panelToClose.SetActive(false);
-            Time.timeScale = 1f; // resume game
-            Cursor.lockState = CursorLockMode.Locked; 
-            Cursor.visible = false; 
-            Debug.Log("Panel closed: " + panelToClose.name);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            if (currentInteractable != null && currentInteractable.riddleIndex >= 0)
+            {
+                RiddleManager.Instance.RiddleSolved();
+                Debug.Log("Solved riddle " + currentInteractable.riddleIndex +
+                          ". Next index unlocked: " + (currentInteractable.riddleIndex + 1));
+            }
         }
     }
 }

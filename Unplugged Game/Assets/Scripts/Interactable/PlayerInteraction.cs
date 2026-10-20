@@ -29,7 +29,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 DropObject();
             }
-
             return;
         }
 
@@ -39,7 +38,17 @@ public class PlayerInteraction : MonoBehaviour
             interactionText.gameObject.SetActive(false);
             justInteracted = true;
         }
+
+        if (currentInteractable != null && currentInteractable.infoPanel != null
+            && currentInteractable.infoPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                currentInteractable.CloseInfoPanel(this);
+            }
+        }
     }
+
 
     void CheckForInteractable()
     {

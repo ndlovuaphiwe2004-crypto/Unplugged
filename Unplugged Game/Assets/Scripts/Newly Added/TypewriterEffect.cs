@@ -4,15 +4,14 @@ using System.Collections;
 
 public class TypewriterEffect : MonoBehaviour
 {
-    public TMP_Text storyText;          // Assign your StoryText
-    [TextArea] public string fullStory; // Paste storyline here
+    public TMP_Text storyText;         
+    [TextArea] public string fullStory; 
     public float typeSpeed = 0.05f;
 
-    public GameObject continuePrompt;   // Assign your ContinuePrompt object
+    public GameObject continuePrompt;   
 
     void Start()
     {
-        // Hide the prompt at the start
         if (continuePrompt != null)
             continuePrompt.SetActive(false);
 
@@ -28,7 +27,6 @@ public class TypewriterEffect : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        // Show the prompt once typing is finished
         if (continuePrompt != null)
             continuePrompt.SetActive(true);
     }

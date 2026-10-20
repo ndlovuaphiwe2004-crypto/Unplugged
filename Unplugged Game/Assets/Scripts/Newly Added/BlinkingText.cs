@@ -3,8 +3,8 @@ using TMPro;
 
 public class BlinkingText : MonoBehaviour
 {
-    public TMP_Text promptText;   // Assign your ContinuePrompt here
-    public float blinkSpeed = 1f; // Seconds per blink
+    public TMP_Text promptText;  
+    public float blinkSpeed = 1f; 
 
     private bool isVisible = true;
     private float timer = 0f;
