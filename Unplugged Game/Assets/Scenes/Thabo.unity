@@ -1189,12 +1189,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
   interactionMessage: Press F to interact
-  interactionType: 0
+  interactionType: 1
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
+  showInfoOnPickup: 1
   infoDelay: 2
-  instructionMessage: 
+  instructionMessage: TRY THIS
 --- !u!54 &170274617
 Rigidbody:
   m_ObjectHideFlags: 0
