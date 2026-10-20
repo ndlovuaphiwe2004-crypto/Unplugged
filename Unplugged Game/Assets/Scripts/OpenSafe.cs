@@ -7,44 +7,44 @@ public class OpenSafe : MonoBehaviour
 {
     private Animator animator;
 
-    private bool IsAtSafe = false;  
+    private bool IsAtSafe = false;
 
     [SerializeField] private TextMeshProUGUI codeText;
-    string code = ""; 
-    public string correctCode;
+    private string code = "";
+    public string correctCode = "1234";
     public GameObject codePanel;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        codeText.text = code;
-
-        if (code == correctCode)
+        if (codePanel != null)
         {
-            animator.SetTrigger("OpenSafe");
             codePanel.SetActive(false);
         }
+    }
 
-        if (code.Length >= 4)
+    void Update()
+    {
+        if (codeText != null)
         {
-            code = "";
+            codeText.text = code;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && IsAtSafe == true)
+        if (Input.GetKeyDown(KeyCode.E) && IsAtSafe)
         {
-            codePanel.SetActive(true);
+            if (codePanel != null)
+            {
+                codePanel.SetActive(true);
+                // Unlock cursor so player can click keypad buttons
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             IsAtSafe = true;
         }
@@ -52,15 +52,54 @@ public class OpenSafe : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Player"))
+        {
             IsAtSafe = false;
-        codePanel.SetActive(false);
+            if (codePanel != null)
+            {
+                codePanel.SetActive(false);
+            }
+            // Lock cursor back for first-person camera movement
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public void AddDigit(string digit)
     {
-        if (IsAtSafe)
+        if (code.Length < correctCode.Length)
         {
             code += digit;
+            CheckCode();
         }
+    }
+
+    private void CheckCode()
+    {
+        if (code == correctCode)
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("OpenSafe");
+            }
+
+            if (codePanel != null)
+            {
+                codePanel.SetActive(false);
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else if (code.Length >= correctCode.Length)
+        {
+            // Reset code after wrong attempt
+            code = "";
+        }
+    }
+
+    public void ClearCode()
+    {
+        code = "";
     }
 }
