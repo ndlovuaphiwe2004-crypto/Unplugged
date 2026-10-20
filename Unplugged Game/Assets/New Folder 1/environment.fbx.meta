@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e9cedaf239afb694c873001bf1507db9
+guid: 1b98590ef0c8de04e9145a70693e8ad8
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
@@ -8,77 +8,77 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DefaultMaterial_BaseColor
-    second: {fileID: 2800000, guid: e2276e88fd34e01469d33e646cbd9d9d, type: 3}
+    second: {fileID: 2800000, guid: 51326a171e0672849b1bb70ec0932114, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DefaultMaterial_Emission
-    second: {fileID: 2800000, guid: 4d9bf27dd55badf42a0970386e6c50a5, type: 3}
+    second: {fileID: 2800000, guid: 621556ce924a7a94b82b25d67b7b4075, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DefaultMaterial_Metallic
-    second: {fileID: 2800000, guid: 7bafd99562ec19044a28813f07ba867f, type: 3}
+    second: {fileID: 2800000, guid: 15a821d929023fb449149fb11d7d23ee, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DefaultMaterial_Normal
-    second: {fileID: 2800000, guid: e130b39f63b6cd0429c5ea1bbe7d7b11, type: 3}
+    second: {fileID: 2800000, guid: 70f19401fc79a5b41a32a0dbfdd8aec1, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DefaultMaterial_Roughness
-    second: {fileID: 2800000, guid: 193ec83104899614e8b60b56bed59583, type: 3}
+    second: {fileID: 2800000, guid: 909b3a1d922f6014d8172d5cd6fea46a, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material.002_BaseColor
-    second: {fileID: 2800000, guid: ae58bb989a1b391479e7f9191b780527, type: 3}
+    second: {fileID: 2800000, guid: 960bc2118a09a5c45aae1a76d1ce04bf, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material.002_Emission
-    second: {fileID: 2800000, guid: 8faee27ee95eff742b6ee4fc6cf43812, type: 3}
+    second: {fileID: 2800000, guid: 2e02fdd4ca2e5fe4089781a1cb0f7854, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material.002_Metallic
-    second: {fileID: 2800000, guid: 9aa225723577b3e4580a07ea5cd4903d, type: 3}
+    second: {fileID: 2800000, guid: cb4e5c7418c380945ab073ceb2b0575b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material.002_Normal
-    second: {fileID: 2800000, guid: 5f8de8b85315be549b3c47ab6bb8ceeb, type: 3}
+    second: {fileID: 2800000, guid: 3a5ece3d6d35ab947b9c36aa154fdee6, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material.002_Roughness
-    second: {fileID: 2800000, guid: 4bf4a03c9693b5c4e99afdf05cf652f6, type: 3}
+    second: {fileID: 2800000, guid: 3a253c9e50155b84cae257caba7d44a6, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material_BaseColor
-    second: {fileID: 2800000, guid: cdf9ecb686f284d4b9940a65fa6c8f4e, type: 3}
+    second: {fileID: 2800000, guid: 1535318c28e09ad4e8b183de361b8e24, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material_Emission
-    second: {fileID: 2800000, guid: c876f4eda51802e469595f85cb20eb2d, type: 3}
+    second: {fileID: 2800000, guid: 8094b16a11e5d3945bc41595291d14c9, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material_Metallic
-    second: {fileID: 2800000, guid: c7d2e0bf102aea94590f0dba7fbc5158, type: 3}
+    second: {fileID: 2800000, guid: 9e3308061126b53499b76cc99648064b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material_Normal
-    second: {fileID: 2800000, guid: 25e0c9497975cbc4083beb0c1170198f, type: 3}
+    second: {fileID: 2800000, guid: 212c6c58e3d0138499edf9b83514b908, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Material_Roughness
-    second: {fileID: 2800000, guid: 2138b0a8c9a38224c868274b42bb1382, type: 3}
+    second: {fileID: 2800000, guid: 8a7c3b17556725643947eaddc022c527, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -126,7 +126,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 0
+    bakeAxisConversion: 1
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
