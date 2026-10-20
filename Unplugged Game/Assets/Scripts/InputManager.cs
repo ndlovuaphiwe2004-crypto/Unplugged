@@ -10,13 +10,29 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerLook playerLook;
 
-    
+
     void Awake()
     {
         playerInput = new PlayerInput();
         Player = playerInput.Player;
+
         playerMovement = GetComponent<PlayerMovement>();
         playerLook = GetComponent<PlayerLook>();
+
+        if (playerMovement == null)
+            Debug.LogError("PlayerMovement component missing on this GameObject");
+        if (playerLook == null)
+            Debug.LogError("PlayerLook component missing on this GameObject");
+    }
+
+    void OnEnable()
+    {
+        Player.Enable();
+    }
+
+    void OnDisable()
+    {
+        Player.Disable();
     }
 
     // Update is called once per frame
@@ -29,13 +45,4 @@ public class InputManager : MonoBehaviour
         playerLook.Look(Player.Look.ReadValue<Vector2>());
     }
 
-    private void OnEnable()
-    {
-        Player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        Player.Disable();
-    }
 }
