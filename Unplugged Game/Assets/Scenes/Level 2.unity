@@ -8864,15 +8864,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1002032219359160626, guid: 2e66e704cfdaae348a0ad69c0a637e77, type: 3}
       propertyPath: m_LocalScale.x
-      value: 14.65077
+      value: 10.59324
       objectReference: {fileID: 0}
     - target: {fileID: 1002032219359160626, guid: 2e66e704cfdaae348a0ad69c0a637e77, type: 3}
       propertyPath: m_LocalScale.y
-      value: 14.650769
+      value: 10.593239
       objectReference: {fileID: 0}
     - target: {fileID: 1002032219359160626, guid: 2e66e704cfdaae348a0ad69c0a637e77, type: 3}
       propertyPath: m_LocalScale.z
-      value: 14.650769
+      value: 10.593239
       objectReference: {fileID: 0}
     - target: {fileID: 1002032219359160626, guid: 2e66e704cfdaae348a0ad69c0a637e77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9276,7 +9276,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1264160527}
   - component: {fileID: 1264160530}
-  - component: {fileID: 1264160529}
   - component: {fileID: 1264160528}
   m_Layer: 0
   m_Name: Camera
@@ -9344,14 +9343,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1264160529
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264160526}
-  m_Enabled: 1
 --- !u!20 &1264160530
 Camera:
   m_ObjectHideFlags: 0
@@ -27237,8 +27228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e64d6213db4be94e9d24dc794aa46f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
-  timerText: {fileID: 0}
-  remainingTime: 300
 --- !u!43 &2114238741
 Mesh:
   m_ObjectHideFlags: 0
@@ -28510,7 +28499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3744706303567980435, guid: 5ffb42218d9230543917acd539f075ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.231
+      value: -30.177
       objectReference: {fileID: 0}
     - target: {fileID: 3744706303567980435, guid: 5ffb42218d9230543917acd539f075ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -138387,7 +138376,7 @@ PrefabInstance:
     - target: {fileID: 9151821689019680427, guid: ab6195bd901126342a6ec3643514cd6b, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0437e5686492034469ddd2b211d7177b, type: 2}
+      objectReference: {fileID: 2100000, guid: c1494d301cef0ac4cbcf5a0bfcebc7af, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4956117791988686245, guid: ab6195bd901126342a6ec3643514cd6b, type: 3}
