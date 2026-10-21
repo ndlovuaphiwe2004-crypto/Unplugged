@@ -891,7 +891,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 134627115}
   infoText: {fileID: 756640841}
-  showInfoOnPickup: 1
   infoDelay: 2
   instructionMessage: RIDDLE TWO A soft skin squeezed daily until nothing remains
     within.  With every press, its substance is forced out drained bit by bit, just
@@ -1800,7 +1799,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -2648,6 +2646,7 @@ MonoBehaviour:
   standingHeight: 2
   crouchHeight: 1
   cameraTransform: {fileID: 0}
+  animationFadeDuration: 0.15
 --- !u!114 &329667950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,8 +2659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda52ade659db374486d0343377d1825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
-  playerMovement: {fileID: 0}
-  playerLook: {fileID: 0}
 --- !u!114 &329667951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2675,9 +2672,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
   playerCam: {fileID: 1147336480}
-  xRotation: 0
   xSensitivity: 1.5
   ySensitivity: 1.5
+  canLook: 1
 --- !u!114 &329667952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2695,6 +2692,16 @@ MonoBehaviour:
   holdPoint: {fileID: 357017172}
   interactionText: {fileID: 3975796}
   dropMessage: Press G to drop
+  rotateMessage: Hold Right Mouse + Move to rotate
+  zoomMessage: Scroll Wheel to zoom
+  analyseMessage: Press R to analyse
+  rotationSpeed: 100
+  rotationLerpSpeed: 10
+  zoomSpeed: 0.5
+  minZoom: 1.2
+  maxZoom: 1.5
+  playerLook: {fileID: 0}
+  isNearSafe: 0
 --- !u!1001 &339329529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4565,7 +4572,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -5642,7 +5648,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -6318,8 +6323,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenSafe
   codeText: {fileID: 2061276482}
-  correctCode: 852
   codePanel: {fileID: 937419668}
+  gameOverPanel: {fileID: 0}
+  interactionText: {fileID: 0}
+  promptMessage: Press E to open
+  correctCode: 852
 --- !u!43 &658798726
 Mesh:
   m_ObjectHideFlags: 0
@@ -11719,7 +11727,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -40859,7 +40866,6 @@ MonoBehaviour:
   interactionType: 3
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -42504,7 +42510,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 0}
   infoText: {fileID: 0}
-  showInfoOnPickup: 0
   infoDelay: 2
   instructionMessage: 
   riddleIndex: -1
@@ -42628,7 +42633,6 @@ MonoBehaviour:
   interactionType: 0
   infoPanel: {fileID: 134627115}
   infoText: {fileID: 756640841}
-  showInfoOnPickup: 1
   infoDelay: 2
   instructionMessage: RIDDLE FIVE I am the glowing screen that replaced real paper
     and books, teaching minds to stop searching for themselves. It was through my

@@ -1156,6 +1156,7 @@ MonoBehaviour:
   standingHeight: 2
   crouchHeight: 1
   cameraTransform: {fileID: 358020428}
+  animationFadeDuration: 0.15
 --- !u!114 &421911075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,6 +1172,7 @@ MonoBehaviour:
   playerCam: {fileID: 358020427}
   xSensitivity: 100
   ySensitivity: 100
+  canLook: 1
 --- !u!114 &421911076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1954,37 +1956,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62a5730a033e1c949a3f418f938fa009, type: 3}
---- !u!1 &715057732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 715057733}
-  m_Layer: 0
-  m_Name: Light system
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &715057733
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715057732}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 391.60812, y: 25.41719, z: -52.18617}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &718921716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10254,4 +10225,3 @@ SceneRoots:
   - {fileID: 296673726}
   - {fileID: 1196194877}
   - {fileID: 1853881176}
-  - {fileID: 715057733}
