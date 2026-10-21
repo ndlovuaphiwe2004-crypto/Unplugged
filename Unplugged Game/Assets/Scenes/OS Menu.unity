@@ -541,7 +541,8 @@ MonoBehaviour:
     own brains, Nexus AI grew too powerful until even the creator lost control of
     his own creation.   Yesterday, the AI took over the global grid, leaving cities
     pitch black and millions of people stranded inside their homes with no help.
-    By shutting off the power, Nexus left both our cities and human mindsin the dark'
+    By shutting off the power, Nexus left both our cities and human minds in the
+    dark.'
   typeSpeed: 0.1
   typewriterAudio: {fileID: 553545337}
   sliceStart: 1
