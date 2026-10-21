@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class SingleDoorTrigger : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class SingleDoorTrigger : MonoBehaviour
     [Tooltip("Angle in degrees around local Z-axis. Flip between 90 and -90 to change direction.")]
     [SerializeField] private float openAngle = -90f;
     [SerializeField] private float speed = 5f;
+
+    [Header("UI Prompt (Optional)")]
+    public TextMeshProUGUI interactionText;
+    public string promptMessage = "Press O to open cupboard";
 
     private bool isPlayerInside = false;
     private bool isOpen = false;
@@ -22,12 +27,17 @@ public class SingleDoorTrigger : MonoBehaviour
 
         // Calculate open orientation around local Z-axis
         openRotation = closedRotation * Quaternion.Euler(0f, 0f, openAngle);
+
+        if (interactionText != null)
+        {
+            interactionText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-        // Detect keypress when player is inside trigger box
-        if (isPlayerInside && (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.F)))
+        // STRICTLY listens for KeyCode.O, completely ignoring F
+        if (isPlayerInside && Input.GetKeyDown(KeyCode.O))
         {
             ToggleDoor();
         }
@@ -66,6 +76,12 @@ public class SingleDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = true;
+
+            if (interactionText != null)
+            {
+                interactionText.text = promptMessage;
+                interactionText.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -74,6 +90,11 @@ public class SingleDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
+
+            if (interactionText != null)
+            {
+                interactionText.gameObject.SetActive(false);
+            }
         }
     }
 }

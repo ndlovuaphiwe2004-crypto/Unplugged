@@ -35,8 +35,10 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
     private GameObject heldObject;
     private bool justInteracted = false;
-
     private Interactable clueInteractable;
+
+    // NEW: Flag used by OpenSafe to prevent UI overriding
+    public bool isNearSafe = false;
 
     void Update()
     {
@@ -44,7 +46,6 @@ public class PlayerInteraction : MonoBehaviour
 
         if (heldObject != null)
         {
-            // Build UI text based on whether the held item is a clue or a regular object
             string currentText = dropMessage + "\n" + rotateMessage + "\n" + zoomMessage;
             if (clueInteractable != null && clueInteractable.HasClue())
             {
@@ -53,7 +54,6 @@ public class PlayerInteraction : MonoBehaviour
             interactionText.text = currentText;
             interactionText.gameObject.SetActive(true);
 
-            // Allow pressing R to analyse only if it's a valid clue
             if (clueInteractable != null && clueInteractable.HasClue() && Input.GetKeyDown(KeyCode.R))
             {
                 clueInteractable.OpenInfoPanel(this);
@@ -62,7 +62,7 @@ public class PlayerInteraction : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.G))
             {
                 DropObject();
-                return; // Prevents null reference error on drop frame
+                return;
             }
 
             if (Input.GetMouseButton(1))
@@ -87,7 +87,6 @@ public class PlayerInteraction : MonoBehaviour
                 playerLook.enabled = true;
             }
 
-            // --- ZOOM & POSITION UPDATE (WITH WALL CLIPPING PREVENTION) ---
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
@@ -97,33 +96,27 @@ public class PlayerInteraction : MonoBehaviour
 
             currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 8f);
 
-            // Calculate desired local and world position
             Vector3 localTargetPos = new Vector3(0, 0, -currentZoom);
             Vector3 worldTargetPos = holdPoint.TransformPoint(localTargetPos);
 
-            // Check if a wall is between the camera and the hold position
             Vector3 camPos = playerCamera.transform.position;
             Vector3 direction = worldTargetPos - camPos;
             float distance = direction.magnitude;
 
-            // Use SphereCastAll so we can filter out the held object and the player
             RaycastHit[] hits = Physics.SphereCastAll(camPos, 0.15f, direction.normalized, distance);
             System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
             foreach (RaycastHit hit in hits)
             {
-                // Ignore the held object and the player's own colliders
                 if (hit.collider.gameObject == heldObject || hit.collider.transform.IsChildOf(transform))
                 {
                     continue;
                 }
 
-                // If it hits a wall/environment, pull the object closer
                 worldTargetPos = hit.point - direction.normalized * 0.15f;
                 break;
             }
 
-            // Smoothly move the held object to its safe position
             heldObject.transform.position = Vector3.Lerp(
                 heldObject.transform.position,
                 worldTargetPos,
@@ -153,6 +146,13 @@ public class PlayerInteraction : MonoBehaviour
     void CheckForInteractable()
     {
         if (heldObject != null)
+        {
+            currentInteractable = null;
+            return;
+        }
+
+        // If near the safe, let OpenSafe control the text display
+        if (isNearSafe)
         {
             currentInteractable = null;
             return;
@@ -226,7 +226,7 @@ public class PlayerInteraction : MonoBehaviour
 
         Debug.Log("Dropped: " + heldObject.name);
         heldObject = null;
-        clueInteractable = null; // Reset clue reference when dropped
+        clueInteractable = null;
         interactionText.gameObject.SetActive(false);
 
         playerLook.enabled = true;
