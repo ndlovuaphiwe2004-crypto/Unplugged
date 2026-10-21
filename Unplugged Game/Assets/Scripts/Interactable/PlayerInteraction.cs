@@ -14,6 +14,9 @@ public class PlayerInteraction : MonoBehaviour
     public string rotateMessage = "Hold Right Mouse + Move to rotate";
     public string zoomMessage = "Scroll Wheel to zoom";
 
+    [Header("Clue Hint")]
+    public string analyseMessage = "Press R to analyse";
+
     [Header("Rotation")]
     public float rotationSpeed = 100f;
     public float rotationLerpSpeed = 10f;
@@ -33,18 +36,33 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject heldObject;
     private bool justInteracted = false;
 
+    private Interactable clueInteractable;
+
     void Update()
     {
         CheckForInteractable();
 
         if (heldObject != null)
         {
-            interactionText.text = dropMessage + "\n" + rotateMessage + "\n" + zoomMessage;
+            // Build UI text based on whether the held item is a clue or a regular object
+            string currentText = dropMessage + "\n" + rotateMessage + "\n" + zoomMessage;
+            if (clueInteractable != null && clueInteractable.HasClue())
+            {
+                currentText += "\n" + analyseMessage;
+            }
+            interactionText.text = currentText;
             interactionText.gameObject.SetActive(true);
+
+            // Allow pressing R to analyse only if it's a valid clue
+            if (clueInteractable != null && clueInteractable.HasClue() && Input.GetKeyDown(KeyCode.R))
+            {
+                clueInteractable.OpenInfoPanel(this);
+            }
 
             if (Input.GetKeyDown(KeyCode.G))
             {
                 DropObject();
+                return; // Prevents null reference error on drop frame
             }
 
             if (Input.GetMouseButton(1))
@@ -69,6 +87,7 @@ public class PlayerInteraction : MonoBehaviour
                 playerLook.enabled = true;
             }
 
+            // --- ZOOM & POSITION UPDATE (WITH WALL CLIPPING PREVENTION) ---
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
@@ -78,10 +97,36 @@ public class PlayerInteraction : MonoBehaviour
 
             currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 8f);
 
-            Vector3 targetPos = new Vector3(0, 0, -currentZoom);
-            heldObject.transform.localPosition = Vector3.Lerp(
-                heldObject.transform.localPosition,
-                targetPos,
+            // Calculate desired local and world position
+            Vector3 localTargetPos = new Vector3(0, 0, -currentZoom);
+            Vector3 worldTargetPos = holdPoint.TransformPoint(localTargetPos);
+
+            // Check if a wall is between the camera and the hold position
+            Vector3 camPos = playerCamera.transform.position;
+            Vector3 direction = worldTargetPos - camPos;
+            float distance = direction.magnitude;
+
+            // Use SphereCastAll so we can filter out the held object and the player
+            RaycastHit[] hits = Physics.SphereCastAll(camPos, 0.15f, direction.normalized, distance);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            foreach (RaycastHit hit in hits)
+            {
+                // Ignore the held object and the player's own colliders
+                if (hit.collider.gameObject == heldObject || hit.collider.transform.IsChildOf(transform))
+                {
+                    continue;
+                }
+
+                // If it hits a wall/environment, pull the object closer
+                worldTargetPos = hit.point - direction.normalized * 0.15f;
+                break;
+            }
+
+            // Smoothly move the held object to its safe position
+            heldObject.transform.position = Vector3.Lerp(
+                heldObject.transform.position,
+                worldTargetPos,
                 Time.deltaTime * 10f
             );
 
@@ -109,7 +154,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (heldObject != null)
         {
-            interactionText.gameObject.SetActive(false);
             currentInteractable = null;
             return;
         }
@@ -182,8 +226,14 @@ public class PlayerInteraction : MonoBehaviour
 
         Debug.Log("Dropped: " + heldObject.name);
         heldObject = null;
+        clueInteractable = null; // Reset clue reference when dropped
         interactionText.gameObject.SetActive(false);
 
         playerLook.enabled = true;
+    }
+
+    public void SetClueInteractable(Interactable interactable)
+    {
+        clueInteractable = interactable;
     }
 }
