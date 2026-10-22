@@ -20,9 +20,10 @@ public class Interactable : MonoBehaviour
     [Header("Optional")]
     public GameObject infoPanel;
     public TMP_Text infoText;
-    public bool showInfoOnPickup = false;
     public float infoDelay = 2f;
     public string instructionMessage;
+
+    public int riddleIndex = -1;
 
     public void Interact(PlayerInteraction playerInteraction)
     {
@@ -43,18 +44,20 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public int riddleIndex = -1;
-
     void PickUp(PlayerInteraction playerInteraction)
     {
+        // 1. Always pick up the object first
         playerInteraction.PickUpObject(gameObject);
 
-        if (riddleIndex >= 0 && RiddleManager.Instance.CanShowRiddle(riddleIndex))
+        // 2. ONLY set as a clue if it has a valid riddle AND an info panel assigned
+        if (HasClue() && RiddleManager.Instance.CanShowRiddle(riddleIndex))
         {
-            if (showInfoOnPickup && infoPanel != null)
-            {
-                StartCoroutine(ShowInfoAfterDelay(playerInteraction));
-            }
+            playerInteraction.SetClueInteractable(this);
+        }
+        else
+        {
+            // If it's a normal pickup with no clue, clear any clue reference
+            playerInteraction.SetClueInteractable(null);
         }
     }
 
@@ -73,22 +76,25 @@ public class Interactable : MonoBehaviour
 
             var movement = playerInteraction.GetComponent<PlayerMovement>();
             if (movement != null) movement.enabled = true;
+
+            // UNFREEZE THE GAME
+            Time.timeScale = 1f;
         }
     }
-
 
     IEnumerator ShowInfoAfterDelay(PlayerInteraction playerInteraction)
     {
         yield return new WaitForSeconds(infoDelay);
-        ShowInfoPanel(playerInteraction);
+        OpenInfoPanel(playerInteraction);
     }
 
     void ViewInfo(PlayerInteraction playerInteraction)
     {
-        ShowInfoPanel(playerInteraction);
+        // For static items (notes/signs on walls) that open directly on F
+        OpenInfoPanel(playerInteraction);
     }
 
-    void ShowInfoPanel(PlayerInteraction playerInteraction)
+    public void OpenInfoPanel(PlayerInteraction playerInteraction)
     {
         if (infoPanel != null)
         {
@@ -109,6 +115,9 @@ public class Interactable : MonoBehaviour
 
             var movement = playerInteraction.GetComponent<PlayerMovement>();
             if (movement != null) movement.enabled = false;
+
+            // FREEZE THE GAME
+            Time.timeScale = 0f;
         }
     }
 
@@ -124,5 +133,11 @@ public class Interactable : MonoBehaviour
         {
             clearButton.ShowClearedPanel();
         }
+    }
+
+    // Returns true only if it's meant to be a collectible clue with a riddle and panel
+    public bool HasClue()
+    {
+        return riddleIndex >= 0 && infoPanel != null;
     }
 }

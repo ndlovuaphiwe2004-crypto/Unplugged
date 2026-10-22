@@ -23,7 +23,8 @@ public class GameTimer : MonoBehaviour
     {
         if (timerRunning)
         {
-            remainingTime -= Time.deltaTime;
+            // Use unscaledDeltaTime so the timer keeps running even when Time.timeScale = 0 (info panel open)
+            remainingTime -= Time.unscaledDeltaTime;
 
             if (remainingTime <= 0)
             {

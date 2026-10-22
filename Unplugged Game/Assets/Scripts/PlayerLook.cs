@@ -13,6 +13,9 @@ public class PlayerLook : MonoBehaviour
     [Range(0.1f, 20f)]
     public float ySensitivity = 0.5f;
 
+    [Header("Control")]
+    public bool canLook = true; // toggle for locking camera
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -21,6 +24,8 @@ public class PlayerLook : MonoBehaviour
 
     public void Look(Vector2 lookInput)
     {
+        if (!enabled) return; // if disabled, do nothing
+
         float mouseX = lookInput.x * xSensitivity * 0.1f;
         float mouseY = lookInput.y * ySensitivity * 0.1f;
 
@@ -30,4 +35,5 @@ public class PlayerLook : MonoBehaviour
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
+
 }
