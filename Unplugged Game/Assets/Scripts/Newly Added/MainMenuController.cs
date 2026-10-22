@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject quitConfirmPanel;
 
     [Header("Main Menu Root")]
-    public CanvasGroup mainMenuGroup; // assign your main menu buttons group here
+    public CanvasGroup mainMenuGroup; 
 
     public void PlayGame()
     {
@@ -18,31 +18,37 @@ public class MainMenuController : MonoBehaviour
     public void OpenSettings()
     {
         settingsPanel.SetActive(true);
-        mainMenuGroup.gameObject.SetActive(false); // hide all main menu buttons
+        mainMenuGroup.gameObject.SetActive(false); 
     }
 
     public void CloseSettings()
     {
         settingsPanel.SetActive(false);
-        mainMenuGroup.gameObject.SetActive(true); // restore buttons
+        mainMenuGroup.gameObject.SetActive(true); 
     }
 
+    
     public void QuitGame()
     {
         quitConfirmPanel.SetActive(true);
-        mainMenuGroup.gameObject.SetActive(false); // hide buttons
+        mainMenuGroup.gameObject.SetActive(false); 
     }
 
     public void CancelQuit()
     {
         quitConfirmPanel.SetActive(false);
-        mainMenuGroup.gameObject.SetActive(true); // restore buttons
+        mainMenuGroup.gameObject.SetActive(true); 
     }
+
+    public void ConfirmQuit()
+    {
+        Debug.Log("Quitting Game...");
+        Application.Quit();
+    }
+
     public void MuteSound()
     {
         if (SoundManager.Instance != null)
             SoundManager.Instance.Mute();
     }
-
-
 }

@@ -17,13 +17,18 @@ public class GameTimer : MonoBehaviour
         remainingTime = totalTime;
         StartTimer();
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
+
+        // Safety check to catch missing references in builds
+        if (timerText == null)
+        {
+            Debug.LogError("GameTimer: Timer Text reference is missing in the Inspector!");
+        }
     }
 
     void Update()
     {
         if (timerRunning)
         {
-            // Use unscaledDeltaTime so the timer keeps running even when Time.timeScale = 0 (info panel open)
             remainingTime -= Time.unscaledDeltaTime;
 
             if (remainingTime <= 0)
@@ -59,9 +64,12 @@ public class GameTimer : MonoBehaviour
 
     void UpdateTimerUI()
     {
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
-        timerText.text = $"{minutes:00}:{seconds:00}";
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / 60);
+            int seconds = Mathf.FloorToInt(remainingTime % 60);
+            timerText.text = $"{minutes:00}:{seconds:00}";
+        }
     }
 
     void ShowGameOver()

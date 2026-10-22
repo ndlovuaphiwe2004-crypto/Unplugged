@@ -37,7 +37,7 @@ public class PlayerInteraction : MonoBehaviour
     private bool justInteracted = false;
     private Interactable clueInteractable;
 
-    // NEW: Flag used by OpenSafe to prevent UI overriding
+    // Flag used by OpenSafe to prevent UI overriding
     public bool isNearSafe = false;
 
     void Update()
@@ -151,7 +151,6 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        // If near the safe, let OpenSafe control the text display
         if (isNearSafe)
         {
             currentInteractable = null;
@@ -161,6 +160,8 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractable = null;
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        // REVERTED: Back to your original 0.5f radius so prompts show up normally
         RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f, interactionDistance);
 
         if (hits.Length > 0)
@@ -215,6 +216,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (heldObject == null) return;
 
+        // KEPT FIX: Force close info panel if active to prevent player movement lockouts
+        if (clueInteractable != null && clueInteractable.infoPanel != null && clueInteractable.infoPanel.activeSelf)
+        {
+            clueInteractable.CloseInfoPanel(this);
+        }
+
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -228,6 +235,11 @@ public class PlayerInteraction : MonoBehaviour
         heldObject = null;
         clueInteractable = null;
         interactionText.gameObject.SetActive(false);
+
+        // KEPT FIX: Ensure movement and time are fully restored upon drop
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null) movement.enabled = true;
+        Time.timeScale = 1f;
 
         playerLook.enabled = true;
     }
