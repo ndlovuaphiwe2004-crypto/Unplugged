@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level 5");
+        SceneManager.LoadScene("LEVEL 5");
     }
 
     public void OpenSettings()

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
+    [Header("Timer Settings")]
     public float totalTime = 420f;
     public TextMeshProUGUI timerText;
     public GameObject gameOverPanel;
@@ -16,17 +17,24 @@ public class GameTimer : MonoBehaviour
     {
         remainingTime = totalTime;
         StartTimer();
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
 
-        // Safety check to catch missing references in builds
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
         if (timerText == null)
         {
-            Debug.LogError("GameTimer: Timer Text reference is missing in the Inspector!");
+            Debug.LogError("GAME TIMER ERROR: timerText slot is empty in the Inspector!");
+        }
+        else
+        {
+            Debug.Log("GAME TIMER SUCCESS: timerText is linked to " + timerText.gameObject.name);
         }
     }
 
     void Update()
     {
+        if (!gameObject.scene.isLoaded) return;
+
         if (timerRunning)
         {
             remainingTime -= Time.unscaledDeltaTime;
@@ -68,7 +76,16 @@ public class GameTimer : MonoBehaviour
         {
             int minutes = Mathf.FloorToInt(remainingTime / 60);
             int seconds = Mathf.FloorToInt(remainingTime % 60);
-            timerText.text = $"{minutes:00}:{seconds:00}";
+            string timeString = $"{minutes:00}:{seconds:00}";
+
+            timerText.text = timeString;
+
+            // Uncomment this line temporarily if you want to spam the console and see if it's updating:
+            // Debug.Log("Updating timer text to: " + timeString);
+        }
+        else
+        {
+            Debug.LogWarning("UpdateTimerUI skipped because timerText is null!");
         }
     }
 
