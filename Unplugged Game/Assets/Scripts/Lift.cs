@@ -1,67 +1,63 @@
 using UnityEngine;
+using System.Collections;
 
-public class Lift : MonoBehaviour
+public class LIFT : MonoBehaviour
 {
+    [Header("Drag Objects Here")]
+    [SerializeField] private GameObject playerObject;
     [SerializeField] private Animator liftAnimator;
-    [SerializeField] private string triggerParameterName = "StartLift";
 
-    private Transform player;
+    [Header("Animation Settings")]
+    [SerializeField] private string triggerParameterName = "StartLift";
+    [SerializeField] private float liftDuration = 5f; // Match your animation length
+
     private bool isMoving;
 
     private void OnTriggerEnter(Collider other)
     {
-        Transform playerTransform = GetPlayerTransform(other.transform);
-
-        if (playerTransform == null)
+        if (playerObject == null)
         {
+            Debug.LogWarning("Drag the Player Object into the Lift Inspector!", this);
             return;
         }
 
-        // Always parent the player when they step onto the lift
-        player = playerTransform;
-        player.SetParent(transform, true);
-
-        // Only trigger the animation if the lift is not already moving
-        if (!isMoving)
+        // Check if the entering collider belongs to the player
+        if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
-            if (liftAnimator != null)
+            // Step 1: Parent the player to the lift first
+            playerObject.transform.SetParent(transform, true);
+
+            // Step 2: Verify the player is actually a child before starting the animation
+            if (playerObject.transform.parent == transform && !isMoving)
             {
-                liftAnimator.SetTrigger(triggerParameterName);
-                isMoving = true;
-            }
-            else
-            {
-                Debug.LogWarning("Lift Animator is missing from the Inspector!", this);
+                if (liftAnimator != null)
+                {
+                    liftAnimator.SetTrigger(triggerParameterName);
+                    isMoving = true;
+                    StartCoroutine(ResetLiftAfterDelay());
+                }
+                else
+                {
+                    Debug.LogWarning("Lift Animator is missing from the Inspector!", this);
+                }
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Transform playerTransform = GetPlayerTransform(other.transform);
+        if (playerObject == null) return;
 
-        if (playerTransform != null && playerTransform == player)
+        // Only unparent if the player leaves the trigger
+        if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
-            player.SetParent(null, true);
-            player = null;
+            playerObject.transform.SetParent(null, true);
         }
     }
 
-    private Transform GetPlayerTransform(Transform current)
+    private IEnumerator ResetLiftAfterDelay()
     {
-        while (current != null)
-        {
-            if (current.CompareTag("Player"))
-            {
-                return current;
-            }
-            current = current.parent;
-        }
-        return null;
-    }
-
-    public void ResetLiftMovement()
-    {
+        yield return new WaitForSeconds(liftDuration);
         isMoving = false;
     }
 }
