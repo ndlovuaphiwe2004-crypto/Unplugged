@@ -207,7 +207,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         heldObject = objectToPickUp;
 
-        // Save original scale and initial world position/rotation
+        // Save original world scale, position, and rotation
         originalScale = heldObject.transform.localScale;
         initialPickupPosition = heldObject.transform.position;
         initialPickupRotation = heldObject.transform.rotation;
@@ -217,6 +217,9 @@ public class PlayerInteraction : MonoBehaviour
         if (rb != null) rb.isKinematic = true;
 
         heldObject.transform.SetParent(holdPoint, true);
+
+        // Enforce clean scale to prevent distortion/warping when rotated under holdPoint
+        heldObject.transform.localScale = originalScale;
 
         currentZoom = 1.3f;
         targetZoom = 1.3f;
@@ -245,7 +248,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (!hasMovedHeldObject)
         {
-            // If the player didn't rotate or zoom, return it to its initial pickup position
+            // If player didn't rotate or zoom, return to initial pickup position/rotation
             heldObject.transform.SetParent(null, true);
             heldObject.transform.position = initialPickupPosition;
             heldObject.transform.rotation = initialPickupRotation;
