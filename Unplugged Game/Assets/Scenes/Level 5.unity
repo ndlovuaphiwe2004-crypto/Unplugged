@@ -17982,7 +17982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7762414020980303362, guid: 1f1988a7d66b3b4428ac8f092ffe9299, type: 3}
       propertyPath: m_Name
-      value: f
+      value: safe
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23354,6 +23354,7 @@ RectTransform:
   - {fileID: 84824313}
   - {fileID: 40767517}
   - {fileID: 2006081206}
+  - {fileID: 1291391652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -23370,10 +23371,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 712096825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e64d6213db4be94e9d24dc794aa46f0, type: 3}
+  m_Script: {fileID: 11500000, guid: a97c3bfc2c5f237438a1eea62172053f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
-  timerText: {fileID: 0}
+  timerText: {fileID: 2006081207}
   remainingTime: 300
 --- !u!114 &712096828
 MonoBehaviour:
@@ -35419,6 +35420,81 @@ Transform:
   - {fileID: 631675325}
   m_Father: {fileID: 1333925006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1291391651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1291391652}
+  - component: {fileID: 1291391654}
+  - component: {fileID: 1291391653}
+  m_Layer: 5
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1291391652
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291391651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 712096826}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 8, y: 8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1291391653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291391651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1291391654
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291391651}
+  m_CullTransparentMesh: 1
 --- !u!43 &1295366772
 Mesh:
   m_ObjectHideFlags: 0
@@ -49508,6 +49584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Keyboard
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: 9953a587a5addeb438616fed168c7273, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -55645,6 +55725,9 @@ MonoBehaviour:
   interactionDistance: 0.3
   holdPoint: {fileID: 988070450}
   interactionText: {fileID: 1249986244}
+  crosshairImage: {fileID: 1291391653}
+  normalCrosshairColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverCrosshairColor: {r: 0, g: 1, b: 0, a: 1}
   dropMessage: Press G to drop
   rotateMessage: Hold Right Mouse + Move to rotate
   zoomMessage: Scroll Wheel to zoom
@@ -55652,7 +55735,7 @@ MonoBehaviour:
   rotationSpeed: 100
   rotationLerpSpeed: 10
   zoomSpeed: 0.5
-  minZoom: 1.2
+  minZoom: 0.85
   maxZoom: 1.5
   playerLook: {fileID: 2050916117}
   isNearSafe: 0
@@ -56230,6 +56313,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f17b06aa41d67f942a984d7d1a0c2520, type: 3}
       propertyPath: m_Name
       value: PC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: f17b06aa41d67f942a984d7d1a0c2520, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

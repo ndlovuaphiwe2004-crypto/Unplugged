@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI interactionText;
+    public Image crosshairImage; // Drag your crosshair dot Image here in the Inspector
+    public Color normalCrosshairColor = Color.white;
+    public Color hoverCrosshairColor = Color.green;
+
     public string dropMessage = "Press G to drop";
     public string rotateMessage = "Hold Right Mouse + Move to rotate";
     public string zoomMessage = "Scroll Wheel to zoom";
@@ -41,7 +46,6 @@ public class PlayerInteraction : MonoBehaviour
     private Vector3 initialPickupPosition;
     private Quaternion initialPickupRotation;
     private Vector3 originalScale;
-    private bool hasMovedHeldObject = false;
 
     // Flag used by OpenSafe to prevent UI overriding
     public bool isNearSafe = false;
@@ -52,6 +56,8 @@ public class PlayerInteraction : MonoBehaviour
 
         if (heldObject != null)
         {
+            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
+
             string currentText = dropMessage + "\n" + rotateMessage + "\n" + zoomMessage;
             if (clueInteractable != null && clueInteractable.HasClue())
             {
@@ -73,7 +79,6 @@ public class PlayerInteraction : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
-                hasMovedHeldObject = true; // Mark as moved when rotating
                 playerLook.enabled = false;
 
                 float rotX = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
@@ -97,7 +102,6 @@ public class PlayerInteraction : MonoBehaviour
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
-                hasMovedHeldObject = true; // Mark as moved when zooming
                 targetZoom -= scroll * zoomSpeed;
                 targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
             }
@@ -157,48 +161,45 @@ public class PlayerInteraction : MonoBehaviour
         if (heldObject != null)
         {
             currentInteractable = null;
+            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
             return;
         }
 
         if (isNearSafe)
         {
             currentInteractable = null;
+            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
             return;
         }
 
         currentInteractable = null;
 
+        // Shoot a precise ray straight from the center of the camera (where your crosshair dot is)
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        RaycastHit hit;
 
-        RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f, interactionDistance);
-
-        if (hits.Length > 0)
+        // Physics.Raycast automatically hits the closest object directly under the crosshair
+        if (Physics.Raycast(ray, out hit, interactionDistance))
         {
-            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
-
-            foreach (RaycastHit hit in hits)
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable != null)
             {
-                Vector3 dirToObject = (hit.collider.transform.position - playerCamera.transform.position).normalized;
-                float dot = Vector3.Dot(playerCamera.transform.forward, dirToObject);
+                currentInteractable = interactable;
 
-                if (dot > 0.5f)
+                // Change crosshair color only when the dot is directly on the interactable object
+                if (crosshairImage != null) crosshairImage.color = hoverCrosshairColor;
+
+                if (!justInteracted)
                 {
-                    Interactable interactable = hit.collider.GetComponent<Interactable>();
-                    if (interactable != null)
-                    {
-                        currentInteractable = interactable;
-
-                        if (!justInteracted)
-                        {
-                            interactionText.text = interactable.interactionMessage;
-                            interactionText.gameObject.SetActive(true);
-                        }
-                        return;
-                    }
+                    interactionText.text = interactable.interactionMessage;
+                    interactionText.gameObject.SetActive(true);
                 }
+                return;
             }
         }
 
+        // Reset crosshair color and hide text when the dot is not on an interactable
+        if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
         interactionText.gameObject.SetActive(false);
         justInteracted = false;
     }
@@ -207,19 +208,13 @@ public class PlayerInteraction : MonoBehaviour
     {
         heldObject = objectToPickUp;
 
-        // Save original world scale, position, and rotation
-        originalScale = heldObject.transform.localScale;
         initialPickupPosition = heldObject.transform.position;
         initialPickupRotation = heldObject.transform.rotation;
-        hasMovedHeldObject = false;
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
         heldObject.transform.SetParent(holdPoint, true);
-
-        // Enforce clean scale to prevent distortion/warping when rotated under holdPoint
-        heldObject.transform.localScale = originalScale;
 
         currentZoom = 1.3f;
         targetZoom = 1.3f;
@@ -243,41 +238,26 @@ public class PlayerInteraction : MonoBehaviour
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
 
-        // Ensure original scale is always restored when dropping
-        heldObject.transform.localScale = originalScale;
+        heldObject.transform.SetParent(null, true);
 
-        if (!hasMovedHeldObject)
+        // Always return to original pickup location
+        heldObject.transform.position = initialPickupPosition;
+        heldObject.transform.rotation = initialPickupRotation;
+
+        if (rb != null)
         {
-            // If player didn't rotate or zoom, return to initial pickup position/rotation
-            heldObject.transform.SetParent(null, true);
-            heldObject.transform.position = initialPickupPosition;
-            heldObject.transform.rotation = initialPickupRotation;
-
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
-
-            Debug.Log("Returned to initial position: " + heldObject.name);
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
-        else
-        {
-            // Drop normally where the player is looking
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                heldObject.transform.SetParent(null, true);
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
 
-            Debug.Log("Dropped: " + heldObject.name);
-        }
+        Debug.Log("Returned to initial position: " + heldObject.name);
 
         heldObject = null;
         clueInteractable = null;
+
+        justInteracted = false;
+        currentInteractable = null;
 
         interactionText.gameObject.SetActive(false);
 
