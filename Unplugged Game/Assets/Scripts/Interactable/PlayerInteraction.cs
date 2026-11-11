@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -11,10 +10,6 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI interactionText;
-    public Image crosshairImage; // Drag your crosshair dot Image here in the Inspector
-    public Color normalCrosshairColor = Color.white;
-    public Color hoverCrosshairColor = Color.green;
-
     public string dropMessage = "Press G to drop";
     public string rotateMessage = "Hold Right Mouse + Move to rotate";
     public string zoomMessage = "Scroll Wheel to zoom";
@@ -42,12 +37,10 @@ public class PlayerInteraction : MonoBehaviour
     private bool justInteracted = false;
     private Interactable clueInteractable;
 
-    // Tracking original world state and scale for returning / cleanup
     private Vector3 initialPickupPosition;
     private Quaternion initialPickupRotation;
     private Vector3 originalScale;
 
-    // Flag used by OpenSafe to prevent UI overriding
     public bool isNearSafe = false;
 
     void Update()
@@ -56,8 +49,6 @@ public class PlayerInteraction : MonoBehaviour
 
         if (heldObject != null)
         {
-            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
-
             string currentText = dropMessage + "\n" + rotateMessage + "\n" + zoomMessage;
             if (clueInteractable != null && clueInteractable.HasClue())
             {
@@ -108,7 +99,6 @@ public class PlayerInteraction : MonoBehaviour
 
             currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 12f);
 
-            // Offset relative to holdPoint (Z = 1.3 on the camera)
             Vector3 localTargetPos = new Vector3(0, 0, currentZoom - 1.3f);
             Vector3 worldTargetPos = holdPoint.TransformPoint(localTargetPos);
 
@@ -161,45 +151,48 @@ public class PlayerInteraction : MonoBehaviour
         if (heldObject != null)
         {
             currentInteractable = null;
-            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
             return;
         }
 
         if (isNearSafe)
         {
             currentInteractable = null;
-            if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
             return;
         }
 
         currentInteractable = null;
 
-        // Shoot a precise ray straight from the center of the camera (where your crosshair dot is)
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit;
 
-        // Physics.Raycast automatically hits the closest object directly under the crosshair
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f, interactionDistance);
+
+        if (hits.Length > 0)
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null)
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            foreach (RaycastHit hit in hits)
             {
-                currentInteractable = interactable;
+                Vector3 dirToObject = (hit.collider.transform.position - playerCamera.transform.position).normalized;
+                float dot = Vector3.Dot(playerCamera.transform.forward, dirToObject);
 
-                // Change crosshair color only when the dot is directly on the interactable object
-                if (crosshairImage != null) crosshairImage.color = hoverCrosshairColor;
-
-                if (!justInteracted)
+                if (dot > 0.5f)
                 {
-                    interactionText.text = interactable.interactionMessage;
-                    interactionText.gameObject.SetActive(true);
+                    Interactable interactable = hit.collider.GetComponent<Interactable>();
+                    if (interactable != null)
+                    {
+                        currentInteractable = interactable;
+
+                        if (!justInteracted)
+                        {
+                            interactionText.text = interactable.interactionMessage;
+                            interactionText.gameObject.SetActive(true);
+                        }
+                        return;
+                    }
                 }
-                return;
             }
         }
 
-        // Reset crosshair color and hide text when the dot is not on an interactable
-        if (crosshairImage != null) crosshairImage.color = normalCrosshairColor;
         interactionText.gameObject.SetActive(false);
         justInteracted = false;
     }
@@ -240,7 +233,6 @@ public class PlayerInteraction : MonoBehaviour
 
         heldObject.transform.SetParent(null, true);
 
-        // Always return to original pickup location
         heldObject.transform.position = initialPickupPosition;
         heldObject.transform.rotation = initialPickupRotation;
 
