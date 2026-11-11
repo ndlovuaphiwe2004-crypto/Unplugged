@@ -23,11 +23,11 @@ public class PlayerInteraction : MonoBehaviour
     private Quaternion targetRotation;
 
     [Header("Zoom")]
-    public float zoomSpeed = 0.5f;
-    public float minZoom = 1.2f;
-    public float maxZoom = 1.5f;
-    private float currentZoom = 0.5f;
-    private float targetZoom = 0.5f;
+    public float zoomSpeed = 3f;
+    public float minZoom = 0.05f;
+    public float maxZoom = 1.6f;
+    private float currentZoom = 1.3f;
+    private float targetZoom = 1.3f;
 
     [Header("References")]
     public PlayerLook playerLook;
@@ -37,7 +37,13 @@ public class PlayerInteraction : MonoBehaviour
     private bool justInteracted = false;
     private Interactable clueInteractable;
 
-    // NEW: Flag used by OpenSafe to prevent UI overriding
+    // Tracking original world state and scale for returning / cleanup
+    private Vector3 initialPickupPosition;
+    private Quaternion initialPickupRotation;
+    private Vector3 originalScale;
+    private bool hasMovedHeldObject = false;
+
+    // Flag used by OpenSafe to prevent UI overriding
     public bool isNearSafe = false;
 
     void Update()
@@ -67,6 +73,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
+                hasMovedHeldObject = true; // Mark as moved when rotating
                 playerLook.enabled = false;
 
                 float rotX = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
@@ -90,13 +97,15 @@ public class PlayerInteraction : MonoBehaviour
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
+                hasMovedHeldObject = true; // Mark as moved when zooming
                 targetZoom -= scroll * zoomSpeed;
                 targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
             }
 
-            currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 8f);
+            currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 12f);
 
-            Vector3 localTargetPos = new Vector3(0, 0, -currentZoom);
+            // Offset relative to holdPoint (Z = 1.3 on the camera)
+            Vector3 localTargetPos = new Vector3(0, 0, currentZoom - 1.3f);
             Vector3 worldTargetPos = holdPoint.TransformPoint(localTargetPos);
 
             Vector3 camPos = playerCamera.transform.position;
@@ -120,7 +129,7 @@ public class PlayerInteraction : MonoBehaviour
             heldObject.transform.position = Vector3.Lerp(
                 heldObject.transform.position,
                 worldTargetPos,
-                Time.deltaTime * 10f
+                Time.deltaTime * 15f
             );
 
             return;
@@ -151,7 +160,6 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        // If near the safe, let OpenSafe control the text display
         if (isNearSafe)
         {
             currentInteractable = null;
@@ -161,6 +169,7 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractable = null;
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
         RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f, interactionDistance);
 
         if (hits.Length > 0)
@@ -198,13 +207,23 @@ public class PlayerInteraction : MonoBehaviour
     {
         heldObject = objectToPickUp;
 
+        // Save original world scale, position, and rotation
+        originalScale = heldObject.transform.localScale;
+        initialPickupPosition = heldObject.transform.position;
+        initialPickupRotation = heldObject.transform.rotation;
+        hasMovedHeldObject = false;
+
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
         heldObject.transform.SetParent(holdPoint, true);
-        currentZoom = 0.5f;
-        targetZoom = 0.5f;
-        heldObject.transform.localPosition = new Vector3(0, 0, -currentZoom);
+
+        // Enforce clean scale to prevent distortion/warping when rotated under holdPoint
+        heldObject.transform.localScale = originalScale;
+
+        currentZoom = 1.3f;
+        targetZoom = 1.3f;
+        heldObject.transform.localPosition = new Vector3(0, 0, currentZoom - 1.3f);
 
         targetRotation = heldObject.transform.rotation;
 
@@ -215,20 +234,58 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (heldObject == null) return;
 
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (clueInteractable != null &&
+            clueInteractable.infoPanel != null &&
+            clueInteractable.infoPanel.activeSelf)
         {
-            rb.isKinematic = false;
-            heldObject.transform.SetParent(null, true);
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            clueInteractable.CloseInfoPanel(this);
         }
 
-        Debug.Log("Dropped: " + heldObject.name);
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+
+        // Ensure original scale is always restored when dropping
+        heldObject.transform.localScale = originalScale;
+
+        if (!hasMovedHeldObject)
+        {
+            // If player didn't rotate or zoom, return to initial pickup position/rotation
+            heldObject.transform.SetParent(null, true);
+            heldObject.transform.position = initialPickupPosition;
+            heldObject.transform.rotation = initialPickupRotation;
+
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            Debug.Log("Returned to initial position: " + heldObject.name);
+        }
+        else
+        {
+            // Drop normally where the player is looking
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                heldObject.transform.SetParent(null, true);
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            Debug.Log("Dropped: " + heldObject.name);
+        }
+
         heldObject = null;
         clueInteractable = null;
+
         interactionText.gameObject.SetActive(false);
 
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null)
+            movement.enabled = true;
+
+        Time.timeScale = 1f;
         playerLook.enabled = true;
     }
 

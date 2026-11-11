@@ -7,20 +7,23 @@ public class MainMenuIntro : MonoBehaviour
 {
     public TMP_Text titleText;
     public string gameTitle = "UNPLUGGED";
-    public float typeSpeed = 0.1f;
+    public float typeSpeed = 0.05f;
     public float moveDuration = 1f;
     public Vector3 targetPosition;
 
     public CanvasGroup[] buttonGroups;
     public float buttonFadeDuration = 0.5f;
-    public float buttonStaggerDelay = 0.3f;
+    public float buttonStaggerDelay = 0.2f;
     public float dropDistance = 200f;
 
     public AnimationCurve dropCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    public float cursorRevealDelay = 0.5f;
+    public float cursorRevealDelay = 0.3f;
 
     void Start()
     {
+        Debug.Log("MAIN MENU INTRO STARTED");
+        Time.timeScale = 1f;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -40,17 +43,18 @@ public class MainMenuIntro : MonoBehaviour
 
     IEnumerator IntroSequence()
     {
+        Debug.Log("INTRO SEQUENCE STARTED");
         foreach (char c in gameTitle)
         {
             titleText.text += c;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
         Vector3 startPos = titleText.rectTransform.anchoredPosition;
         float elapsed = 0f;
         while (elapsed < moveDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             titleText.rectTransform.anchoredPosition =
                 Vector3.Lerp(startPos, targetPosition, Mathf.SmoothStep(0f, 1f, elapsed / moveDuration));
             yield return null;
@@ -59,10 +63,10 @@ public class MainMenuIntro : MonoBehaviour
         for (int i = buttonGroups.Length - 1; i >= 0; i--)
         {
             yield return StartCoroutine(DropInButton(buttonGroups[i]));
-            yield return new WaitForSeconds(buttonStaggerDelay);
+            yield return new WaitForSecondsRealtime(buttonStaggerDelay);
         }
 
-        yield return new WaitForSeconds(cursorRevealDelay);
+        yield return new WaitForSecondsRealtime(cursorRevealDelay);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -77,7 +81,7 @@ public class MainMenuIntro : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < buttonFadeDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             float t = Mathf.Clamp01(elapsed / buttonFadeDuration);
 
             group.alpha = t;

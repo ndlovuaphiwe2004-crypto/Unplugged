@@ -121,14 +121,12 @@ public class OpenSafe : MonoBehaviour
                 codePanel.SetActive(false);
             }
 
-            if (gameOverPanel != null)
-            {
-                gameOverPanel.SetActive(true);
-            }
+            GameClearButton gameClear = FindObjectOfType<GameClearButton>();
 
-            Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if (gameClear != null)
+            {
+                gameClear.ShowClearedPanel();
+            }
         }
         else if (code.Length >= correctCode.Length)
         {
