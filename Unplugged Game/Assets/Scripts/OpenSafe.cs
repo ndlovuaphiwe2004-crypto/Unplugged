@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class OpenSafe : MonoBehaviour
 {
@@ -15,6 +17,15 @@ public class OpenSafe : MonoBehaviour
     public TextMeshProUGUI interactionText;
     public string promptMessage = "Press E to open";
 
+    [Header("Victory Effects")]
+    [SerializeField] private ParticleSystem confettiParticleSystem;
+
+    [Header("Feedback Settings")]
+    [SerializeField] private Image panelBackgroundImage; // Drag your codePanel's Image component here
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color errorColor = Color.red;
+    [SerializeField] private float flashDuration = 0.2f;
+
     private string code = "";
     public string correctCode = "1234";
 
@@ -24,6 +35,17 @@ public class OpenSafe : MonoBehaviour
         if (codePanel != null) codePanel.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         if (interactionText != null) interactionText.gameObject.SetActive(false);
+
+        if (confettiParticleSystem != null)
+        {
+            confettiParticleSystem.Stop();
+        }
+
+        // Auto-grab Image component from codePanel if not assigned
+        if (panelBackgroundImage == null && codePanel != null)
+        {
+            panelBackgroundImage = codePanel.GetComponent<Image>();
+        }
     }
 
     void Update()
@@ -55,7 +77,6 @@ public class OpenSafe : MonoBehaviour
         {
             IsAtSafe = true;
 
-            // Tell PlayerInteraction to step back and let OpenSafe control the text
             PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
             if (playerInteraction != null)
             {
@@ -76,7 +97,6 @@ public class OpenSafe : MonoBehaviour
         {
             IsAtSafe = false;
 
-            // Give control back to PlayerInteraction
             PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
             if (playerInteraction != null)
             {
@@ -121,7 +141,14 @@ public class OpenSafe : MonoBehaviour
                 codePanel.SetActive(false);
             }
 
-            GameClearButton gameClear = FindObjectOfType<GameClearButton>();
+            if (confettiParticleSystem != null)
+            {
+                confettiParticleSystem.Stop();
+                confettiParticleSystem.Clear();
+                confettiParticleSystem.Play();
+            }
+
+            GameClearButton gameClear = FindAnyObjectByType<GameClearButton>();
 
             if (gameClear != null)
             {
@@ -130,8 +157,26 @@ public class OpenSafe : MonoBehaviour
         }
         else if (code.Length >= correctCode.Length)
         {
-            code = "";
+            // Trigger red flash and clear wrong code
+            StartCoroutine(FlashRedAndReset());
         }
+    }
+
+    private IEnumerator FlashRedAndReset()
+    {
+        if (panelBackgroundImage != null)
+        {
+            panelBackgroundImage.color = errorColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        if (panelBackgroundImage != null)
+        {
+            panelBackgroundImage.color = normalColor;
+        }
+
+        code = "";
     }
 
     public void ClearCode()
