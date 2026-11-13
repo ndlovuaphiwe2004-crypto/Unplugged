@@ -37,10 +37,13 @@ public class PlayerInteraction : MonoBehaviour
     private bool justInteracted = false;
     private Interactable clueInteractable;
 
+    // Tracking original world state and scale for returning / cleanup
     private Vector3 initialPickupPosition;
     private Quaternion initialPickupRotation;
     private Vector3 originalScale;
+    private bool hasMovedHeldObject = false;
 
+    // Flag used by OpenSafe to prevent UI overriding
     public bool isNearSafe = false;
 
     void Update()
@@ -70,6 +73,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
+                hasMovedHeldObject = true; // Mark as moved when rotating
                 playerLook.enabled = false;
 
                 float rotX = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
@@ -93,12 +97,14 @@ public class PlayerInteraction : MonoBehaviour
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
+                hasMovedHeldObject = true; // Mark as moved when zooming
                 targetZoom -= scroll * zoomSpeed;
                 targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
             }
 
             currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 12f);
 
+            // Offset relative to holdPoint (Z = 1.3 on the camera)
             Vector3 localTargetPos = new Vector3(0, 0, currentZoom - 1.3f);
             Vector3 worldTargetPos = holdPoint.TransformPoint(localTargetPos);
 
@@ -201,13 +207,19 @@ public class PlayerInteraction : MonoBehaviour
     {
         heldObject = objectToPickUp;
 
+        // Save original world scale, position, and rotation
+        originalScale = heldObject.transform.localScale;
         initialPickupPosition = heldObject.transform.position;
         initialPickupRotation = heldObject.transform.rotation;
+        hasMovedHeldObject = false;
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
 
         heldObject.transform.SetParent(holdPoint, true);
+
+        // Enforce clean scale to prevent distortion/warping when rotated under holdPoint
+        heldObject.transform.localScale = originalScale;
 
         currentZoom = 1.3f;
         targetZoom = 1.3f;
@@ -231,25 +243,41 @@ public class PlayerInteraction : MonoBehaviour
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
 
-        heldObject.transform.SetParent(null, true);
+        // Ensure original scale is always restored when dropping
+        heldObject.transform.localScale = originalScale;
 
-        heldObject.transform.position = initialPickupPosition;
-        heldObject.transform.rotation = initialPickupRotation;
-
-        if (rb != null)
+        if (!hasMovedHeldObject)
         {
-            rb.isKinematic = false;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
+            // If player didn't rotate or zoom, return to initial pickup position/rotation
+            heldObject.transform.SetParent(null, true);
+            heldObject.transform.position = initialPickupPosition;
+            heldObject.transform.rotation = initialPickupRotation;
 
-        Debug.Log("Returned to initial position: " + heldObject.name);
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            Debug.Log("Returned to initial position: " + heldObject.name);
+        }
+        else
+        {
+            // Drop normally where the player is looking
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                heldObject.transform.SetParent(null, true);
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            Debug.Log("Dropped: " + heldObject.name);
+        }
 
         heldObject = null;
         clueInteractable = null;
-
-        justInteracted = false;
-        currentInteractable = null;
 
         interactionText.gameObject.SetActive(false);
 
