@@ -9,7 +9,7 @@ public class LIFT : MonoBehaviour
 
     [Header("Animation Settings")]
     [SerializeField] private string triggerParameterName = "StartLift";
-    [SerializeField] private float liftDuration = 5f; // Match your animation length
+    [SerializeField] private float liftDuration = 5f; 
 
     private bool isMoving;
 
@@ -21,13 +21,13 @@ public class LIFT : MonoBehaviour
             return;
         }
 
-        // Check if the entering collider belongs to the player
+        
         if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
-            // Step 1: Parent the player to the lift first
+           
             playerObject.transform.SetParent(transform, true);
 
-            // Step 2: Verify the player is actually a child before starting the animation
+            
             if (playerObject.transform.parent == transform && !isMoving)
             {
                 if (liftAnimator != null)
@@ -48,7 +48,7 @@ public class LIFT : MonoBehaviour
     {
         if (playerObject == null) return;
 
-        // Only unparent if the player leaves the trigger
+        
         if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
             playerObject.transform.SetParent(null, true);
