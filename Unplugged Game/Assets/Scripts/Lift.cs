@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class LIFT : MonoBehaviour
+public class Lift : MonoBehaviour
 {
     [Header("Drag Objects Here")]
     [SerializeField] private GameObject playerObject;
@@ -9,7 +9,7 @@ public class LIFT : MonoBehaviour
 
     [Header("Animation Settings")]
     [SerializeField] private string triggerParameterName = "StartLift";
-    [SerializeField] private float liftDuration = 5f; 
+    [SerializeField] private float liftDuration = 5f;
 
     private bool isMoving;
 
@@ -21,13 +21,13 @@ public class LIFT : MonoBehaviour
             return;
         }
 
-        
+
         if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
-           
+
             playerObject.transform.SetParent(transform, true);
 
-            
+
             if (playerObject.transform.parent == transform && !isMoving)
             {
                 if (liftAnimator != null)
@@ -48,7 +48,7 @@ public class LIFT : MonoBehaviour
     {
         if (playerObject == null) return;
 
-        
+
         if (other.gameObject == playerObject || other.transform.IsChildOf(playerObject.transform))
         {
             playerObject.transform.SetParent(null, true);
