@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 2bda0cd374d038e498f96f6a110d4fe3, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: cce5fc22d530544e9baddea9febf9776, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -17982,7 +17982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7762414020980303362, guid: 1f1988a7d66b3b4428ac8f092ffe9299, type: 3}
       propertyPath: m_Name
-      value: safe
+      value: f
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21558,7 +21558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf9a453ec2ad54cbbd45dbd2943981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkingText
-  promptText: {fileID: 574735964}
+  promptText: {fileID: 1117385171}
   blinkSpeed: 0.5
 --- !u!114 &574735964
 MonoBehaviour:
@@ -23328,6 +23328,7 @@ GameObject:
   - component: {fileID: 712096830}
   - component: {fileID: 712096829}
   - component: {fileID: 712096828}
+  - component: {fileID: 712096827}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -23360,6 +23361,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &712096827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712096825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e64d6213db4be94e9d24dc794aa46f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
+  timerText: {fileID: 0}
+  remainingTime: 300
 --- !u!114 &712096828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44087,6 +44102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1549152627}
+  - component: {fileID: 1549152626}
+  - component: {fileID: 1549152625}
   m_Layer: 0
   m_Name: Sound
   m_TagString: Untagged
@@ -44094,6 +44111,116 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!82 &1549152625
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549152624}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 2ebbd9ba53397124eb8a9567265904c4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1549152626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549152624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d32aa9d8c402a43a64bb8e7607b750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  backgroundMusic: {fileID: 1549152625}
 --- !u!4 &1549152627
 Transform:
   m_ObjectHideFlags: 0
@@ -45152,7 +45279,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -8182062588088536986, guid: 99cb2e19c2f8bd644ab6f6b43783872d, type: 3}
+  m_Mesh: {fileID: -8182062588088536986, guid: a18b4bc4389d02640bfc8b3fff42c3d3, type: 3}
   m_Bones:
   - {fileID: 1856082119}
   - {fileID: 1647494748}
@@ -49380,10 +49507,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9953a587a5addeb438616fed168c7273, type: 3}
       propertyPath: m_Name
       value: Keyboard
-      objectReference: {fileID: 0}
-    - target: {fileID: 3451118302482216456, guid: 9953a587a5addeb438616fed168c7273, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -55460,7 +55583,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.025409846, y: 0.019999998, z: 0.048747476}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.00007684622, y: -0.000092634924, z: -0.0022273648}
 --- !u!114 &2047413966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55529,7 +55652,7 @@ MonoBehaviour:
   rotationSpeed: 100
   rotationLerpSpeed: 10
   zoomSpeed: 0.5
-  minZoom: 0.85
+  minZoom: 1.2
   maxZoom: 1.5
   playerLook: {fileID: 2050916117}
   isNearSafe: 0
@@ -56107,10 +56230,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f17b06aa41d67f942a984d7d1a0c2520, type: 3}
       propertyPath: m_Name
       value: PC
-      objectReference: {fileID: 0}
-    - target: {fileID: 3451118302482216456, guid: f17b06aa41d67f942a984d7d1a0c2520, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -51,7 +51,6 @@ public class GameTimer : MonoBehaviour
 
         if (gameOverActive)
         {
-            Time.timeScale =0f;
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Time.timeScale = 1f;
