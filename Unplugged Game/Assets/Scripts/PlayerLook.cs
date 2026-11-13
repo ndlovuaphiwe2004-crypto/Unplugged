@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
@@ -14,26 +12,33 @@ public class PlayerLook : MonoBehaviour
     public float ySensitivity = 0.5f;
 
     [Header("Control")]
-    public bool canLook = true; // toggle for locking camera
+    public bool canLook = true;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (playerCam == null && Camera.main != null)
+        {
+            playerCam = Camera.main;
+        }
     }
 
     public void Look(Vector2 lookInput)
     {
-        if (!enabled) return; // if disabled, do nothing
+        if (!enabled || !canLook) return;
 
-        float mouseX = lookInput.x * xSensitivity * 0.1f;
-        float mouseY = lookInput.y * ySensitivity * 0.1f;
+        float mouseX = lookInput.x * xSensitivity * 0.5f;
+        float mouseY = lookInput.y * ySensitivity * 0.5f;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        if (playerCam != null)
+        {
+            playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
         transform.Rotate(Vector3.up * mouseX);
     }
-
 }

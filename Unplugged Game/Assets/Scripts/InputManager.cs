@@ -10,7 +10,6 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerLook playerLook;
 
-
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -35,14 +34,21 @@ public class InputManager : MonoBehaviour
         Player.Disable();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        playerMovement.PlayerMove(Player.Movement.ReadValue<Vector2>());
-    }
-    private void LateUpdate()
-    {
-        playerLook.Look(Player.Look.ReadValue<Vector2>());
+        // Pass movement input vector to PlayerMovement
+        if (playerMovement != null)
+        {
+            playerMovement.PlayerMove(Player.Movement.ReadValue<Vector2>());
+        }
     }
 
+    private void LateUpdate()
+    {
+        // Pass look input vector to PlayerLook
+        if (playerLook != null)
+        {
+            playerLook.Look(Player.Look.ReadValue<Vector2>());
+        }
+    }
 }
