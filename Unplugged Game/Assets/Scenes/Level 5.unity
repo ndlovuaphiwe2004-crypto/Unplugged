@@ -49396,6 +49396,11 @@ MonoBehaviour:
   gameOverPanel: {fileID: 84824312}
   interactionText: {fileID: 1249986244}
   promptMessage: Press E to open
+  confettiParticleSystem: {fileID: 0}
+  panelBackgroundImage: {fileID: 0}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  errorColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.2
   correctCode: 15928
 --- !u!65 &1952395486
 BoxCollider:
