@@ -22,6 +22,7 @@ public class IntroPanelController : MonoBehaviour
         if (introPanel.activeSelf && Input.GetKeyDown(KeyCode.C))
         {
             ClosePanel();
+            Time.timeScale = 1f;
         }
     }
 

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -34,18 +31,17 @@ public class InputManager : MonoBehaviour
         Player.Disable();
     }
 
-    void FixedUpdate()
+    // Moved from FixedUpdate to Update so CharacterController movement is smooth
+    void Update()
     {
-        // Pass movement input vector to PlayerMovement
         if (playerMovement != null)
         {
             playerMovement.PlayerMove(Player.Movement.ReadValue<Vector2>());
         }
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
-        // Pass look input vector to PlayerLook
         if (playerLook != null)
         {
             playerLook.Look(Player.Look.ReadValue<Vector2>());
